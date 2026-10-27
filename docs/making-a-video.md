@@ -20,7 +20,14 @@ while it is spoken and the exact words that bring in each slide and each card.
 
 - Choose designs with `docs/visual-planning.md` ("How to choose a design"): steps -> process,
   two sides -> comparison, parts around a centre -> mind-map, "not X but Y" -> before-after, a
-  term -> definition, and so on. Keep plain statement slides to about a third or less.
+  term -> definition, and so on. Lesson-flow designs give the video a shape: an `agenda` or
+  `learning-objectives` near the start, a `quiz-choice` or `true-false` where the narrator asks a
+  question, `key-takeaways` and `next-steps` before the close. Keep plain statement slides to
+  about a third or less. `transcripts/NAMA-Lesson-02-Design-Gallery.*` and
+  `transcripts/NAMA-Lesson-03-Design-Gallery-2.*` and `transcripts/NAMA-Lesson-04-Design-Gallery-3.*`
+  show one slide of each of the newer designs
+  with a working plan. Practice designs (`flip-card`, `match-pairs`, `sequence-order`,
+  `predict-reveal`, `fill-blank`) make the learner think before the answer is shown.
 - Keys are `"Pure narration · 1"`, `"Pure narration · 2"`, ... in paragraph order (the greeting
   joins paragraph 1). Paragraph 1 starts with the title slide (`kind: "title"`).
 - Card text comes from the narration and stays short.

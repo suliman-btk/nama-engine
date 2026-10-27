@@ -10,7 +10,16 @@ import {
   TimelineRoadmap,
 } from "./NamaDiagrams";
 import { BarChart, BeforeAfter, DonutChart, LayerStack, MindMap, Pyramid, Quadrant, RoadmapPath, Target, Venn } from "./NamaCharts";
-import { Balance, DecisionTree, Definition, Funnel, Gears, Iceberg, Spectrum, StatTiles } from "./NamaShapes";
+import { Balance, DecisionTree, Definition, Funnel, Gears, GrowthTree, Iceberg, Spectrum, StatTiles } from "./NamaShapes";
+import { Agenda, Analogy, KeyTakeaways, LearningObjectives, NextSteps, QuizChoice, ScenarioCard, TipCallout, TrueFalse, WorkedExample } from "./NamaLessonFlow";
+import { ComparisonTable, HierarchyTree, LineChart, MythVsFact, Pillars, PercentRing, ProsCons } from "./NamaInsights";
+import { BigNumber, DidYouKnow, FillBlank, KeywordHighlight, NextLesson, Quote } from "./NamaFeatures";
+import { AgendaProgress, Dialogue, FlipCard, Glossary, MatchPairs, PredictReveal, QandA, SequenceOrder } from "./NamaPractice";
+import { Bridge, CauseEffect, ColumnChart, Formula, IconArray, NumberChange, Puzzle, RatingScale } from "./NamaFigures";
+import { FiveWhys, Gauge, PriorityMatrix, Radar, Swot, TrafficLight } from "./NamaAnalysis";
+import { Chain, CirclesOfControl, ConceptMap, Domino, Hourglass, Ripple, Spiral, ZoomIn } from "./NamaSystems";
+import { Compass, Gantt, HeadHeartHands, Kanban, Swimlanes, ThenNowNext, TimeWheel, WeekPlan } from "./NamaPlanning";
+import { Backdrop, BackdropContext, pickBackdrop } from "./NamaBackdrops";
 import type { ScriptScene } from "./schema";
 
 function enter(frame: number, delay = 0, duration = 14) {
@@ -20,22 +29,6 @@ function enter(frame: number, delay = 0, duration = 14) {
   });
   const eased = 1 - Math.pow(1 - progress, 3);
   return { opacity: eased, transform: `translateY(${Math.round((1 - eased) * 22)}px)` };
-}
-
-function AmbientMotion({ dark }: { dark: boolean }) {
-  const theme = useTheme();
-  const frame = useCurrentFrame();
-  const driftX = Math.sin(frame / 42) * 18;
-  const driftY = Math.cos(frame / 51) * 14;
-  const sweep = interpolate(frame, [0, 36], [-18, 118], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
-  return (
-    <div style={{ position: "absolute", inset: 0, overflow: "hidden", pointerEvents: "none" }}>
-      <div style={{ position: "absolute", left: `${sweep}%`, top: 0, bottom: 0, width: 8, transform: "skewX(-12deg)", background: dark ? "rgba(255,255,255,0.07)" : "rgba(2,1,129,0.05)" }} />
-      <div style={{ position: "absolute", right: -120 + driftX, bottom: 70 + driftY, width: 390, height: 390, borderRadius: "50%", border: `42px solid ${dark ? "rgba(255,255,255,0.045)" : theme.colors.plumSafe}`, transform: `rotate(${frame * 0.08}deg)` }} />
-      <div style={{ position: "absolute", right: 350 - driftX * 0.4, top: 115 + driftY * 0.5, width: 18, height: 18, borderRadius: "50%", background: theme.colors.gold, opacity: 0.7 + Math.sin(frame / 12) * 0.18 }} />
-      <div style={{ position: "absolute", left: 0, right: 0, top: 124, height: 1, background: dark ? "rgba(255,255,255,0.06)" : "rgba(2,1,129,0.06)" }} />
-    </div>
-  );
 }
 
 function AnimatedHeadline({ text, dark, size = 64 }: { text: string; dark: boolean; size?: number }) {
@@ -218,7 +211,7 @@ function LightStatement({ scene, label, dark }: { scene: ScriptScene; label: str
   const frame = useCurrentFrame();
   return (
     <AbsoluteFill style={{ background: dark ? theme.colors.deep : theme.colors.surface, fontFamily: theme.bodyFamily }}>
-      <AmbientMotion dark={dark} />
+      <Backdrop dark={dark} />
       <div style={{ position: "absolute", left: 84, right: 230, top: 238 }}>
         <AnimatedHeadline text={scene.visual.title} dark={dark} size={68} />
         <div style={{ ...enter(frame, 22), marginTop: 42 }}>
@@ -242,7 +235,7 @@ function Checklist({ scene, label, dark }: { scene: ScriptScene; label: string; 
     : Math.min(items.length - 1, Math.max(0, Math.floor((frame - 24) / 38)));
   return (
     <AbsoluteFill style={{ background: dark ? theme.colors.deep : theme.colors.surface, fontFamily: theme.bodyFamily }}>
-      <AmbientMotion dark={dark} />
+      <Backdrop dark={dark} />
       <div style={{ position: "absolute", left: 84, right: 120, top: 148, bottom: 132, display: "flex", flexDirection: "column" }}>
         <div style={{ ...enter(frame, 4), color: dark ? "#FFFFFF" : theme.colors.navy, fontFamily: theme.headingFamily, fontSize: 52, fontWeight: theme.headingWeight, marginBottom: 14 }}>
           {scene.visual.title}
@@ -288,9 +281,9 @@ function BrandBeat({ scene, label, dark, closing = false }: { scene: ScriptScene
   const frame = useCurrentFrame();
   return (
     <AbsoluteFill style={{ background: dark ? `linear-gradient(145deg, ${theme.colors.navy}, ${theme.colors.deep})` : theme.colors.surface, fontFamily: theme.bodyFamily }}>
-      <AmbientMotion dark={dark} />
+      <Backdrop dark={dark} />
       <div style={{ position: "absolute", left: 110, top: 190, right: 180 }}>
-        <div style={{ ...enter(frame, 4), color: theme.colors.gold, fontSize: closing ? 22 : 116, fontWeight: 800, lineHeight: 1, marginBottom: 30 }}>
+        <div style={{ ...enter(frame, 4), color: closing && !dark ? theme.colors.inkDim : theme.colors.gold, fontSize: closing ? 22 : 116, fontWeight: 800, lineHeight: 1, marginBottom: 30 }}>
           {closing ? "KEY TAKEAWAY" : "?"}
         </div>
         <div style={{ ...enter(frame, 12, 18), color: dark ? "#FFFFFF" : theme.colors.navy, fontFamily: theme.headingFamily, fontWeight: theme.headingWeight, fontSize: closing ? 64 : 58, lineHeight: 1.18, maxWidth: 1450 }}>
@@ -309,6 +302,7 @@ function DiagramScene({ scene, label, dark }: { scene: ScriptScene; label: strin
   const items = scene.visual.items ?? [];
   const common = { items, dark, title: scene.visual.title, itemStartSeconds: scene.visual.itemStartSeconds };
   const chart = { ...common, values: scene.visual.values, unit: scene.visual.unit, center: scene.visual.center, leftLabel: scene.visual.leftLabel, rightLabel: scene.visual.rightLabel, leftCount: scene.visual.leftCount, joiner: scene.visual.joiner };
+  const lesson = { ...chart, answer: scene.visual.answer, revealStartSeconds: scene.visual.revealStartSeconds, columns: scene.visual.columns, current: scene.visual.current };
   const diagram = (() => {
     switch (scene.visual.kind) {
       case "process": return <ProcessFlow {...common} />;
@@ -334,13 +328,69 @@ function DiagramScene({ scene, label, dark }: { scene: ScriptScene; label: strin
       case "stat-tiles": return <StatTiles {...chart} />;
       case "gears": return <Gears {...chart} />;
       case "definition": return <Definition {...chart} />;
+      case "agenda": return <Agenda {...lesson} />;
+      case "learning-objectives": return <LearningObjectives {...lesson} />;
+      case "key-takeaways": return <KeyTakeaways {...lesson} />;
+      case "next-steps": return <NextSteps {...lesson} />;
+      case "quiz-choice": return <QuizChoice {...lesson} />;
+      case "true-false": return <TrueFalse {...lesson} />;
+      case "tip-callout": return <TipCallout {...lesson} />;
+      case "scenario-card": return <ScenarioCard {...lesson} />;
+      case "worked-example": return <WorkedExample {...lesson} />;
+      case "analogy": return <Analogy {...lesson} />;
+      case "myth-vs-fact": return <MythVsFact {...lesson} />;
+      case "pros-cons": return <ProsCons {...lesson} />;
+      case "pillars": return <Pillars {...lesson} />;
+      case "hierarchy-tree": return <HierarchyTree {...lesson} />;
+      case "comparison-table": return <ComparisonTable {...lesson} />;
+      case "percent-ring": return <PercentRing {...lesson} />;
+      case "line-chart": return <LineChart {...lesson} />;
+      case "flip-card": return <FlipCard {...lesson} />;
+      case "match-pairs": return <MatchPairs {...lesson} />;
+      case "sequence-order": return <SequenceOrder {...lesson} />;
+      case "predict-reveal": return <PredictReveal {...lesson} />;
+      case "agenda-progress": return <AgendaProgress {...lesson} />;
+      case "q-and-a": return <QandA {...lesson} />;
+      case "dialogue": return <Dialogue {...lesson} />;
+      case "glossary": return <Glossary {...lesson} />;
+      case "icon-array": return <IconArray {...lesson} />;
+      case "number-change": return <NumberChange {...lesson} />;
+      case "rating-scale": return <RatingScale {...lesson} />;
+      case "column-chart": return <ColumnChart {...lesson} />;
+      case "cause-effect": return <CauseEffect {...lesson} />;
+      case "formula": return <Formula {...lesson} />;
+      case "bridge": return <Bridge {...lesson} />;
+      case "puzzle": return <Puzzle {...lesson} />;
+      case "growth-tree": return <GrowthTree {...lesson} />;
+      case "swot": return <Swot {...lesson} />;
+      case "priority-matrix": return <PriorityMatrix {...lesson} />;
+      case "five-whys": return <FiveWhys {...lesson} />;
+      case "traffic-light": return <TrafficLight {...lesson} />;
+      case "gauge": return <Gauge {...lesson} />;
+      case "radar": return <Radar {...lesson} />;
+      case "concept-map": return <ConceptMap {...lesson} />;
+      case "chain": return <Chain {...lesson} />;
+      case "domino": return <Domino {...lesson} />;
+      case "ripple": return <Ripple {...lesson} />;
+      case "circles-of-control": return <CirclesOfControl {...lesson} />;
+      case "hourglass": return <Hourglass {...lesson} />;
+      case "zoom-in": return <ZoomIn {...lesson} />;
+      case "spiral": return <Spiral {...lesson} />;
+      case "swimlanes": return <Swimlanes {...lesson} />;
+      case "kanban": return <Kanban {...lesson} />;
+      case "gantt": return <Gantt {...lesson} />;
+      case "week-plan": return <WeekPlan {...lesson} />;
+      case "time-wheel": return <TimeWheel {...lesson} />;
+      case "then-now-next": return <ThenNowNext {...lesson} />;
+      case "head-heart-hands": return <HeadHeartHands {...lesson} />;
+      case "compass": return <Compass {...lesson} />;
       case "card-grid":
       default: return <CardConstellation {...common} />;
     }
   })();
   return (
     <AbsoluteFill style={{ background: dark ? theme.colors.deep : theme.colors.surface, fontFamily: theme.bodyFamily }}>
-      <AmbientMotion dark={dark} />
+      <Backdrop dark={dark} />
       <div style={{ position: "absolute", left: 84, right: 100, top: 146, bottom: 132, display: "flex", flexDirection: "column" }}>
         <div style={{ ...enter(frame, 2), color: dark ? "#FFFFFF" : theme.colors.navy, fontFamily: theme.headingFamily, fontWeight: theme.headingWeight, fontSize: 58, lineHeight: 1.12, marginBottom: 16 }}>
           {scene.visual.title}
@@ -355,14 +405,53 @@ function DiagramScene({ scene, label, dark }: { scene: ScriptScene; label: strin
   );
 }
 
+/** Full-slide designs: the content is the headline, so there is no diagram heading above it. */
+function FeatureScene({ scene, label, dark }: { scene: ScriptScene; label: string; dark: boolean }) {
+  const theme = useTheme();
+  const v = scene.visual;
+  const props = { title: v.title, items: v.items ?? [], dark, itemStartSeconds: v.itemStartSeconds, center: v.center };
+  return (
+    <AbsoluteFill style={{ background: dark ? theme.colors.deep : theme.colors.surface, fontFamily: theme.bodyFamily }}>
+      <Backdrop dark={dark} />
+      <div style={{ position: "absolute", left: 84, right: 100, top: 150, bottom: 120 }}>
+        {v.kind === "quote" ? <Quote {...props} />
+          : v.kind === "big-number" ? <BigNumber {...props} />
+          : v.kind === "fill-blank" ? <FillBlank {...props} />
+          : v.kind === "did-you-know" ? <DidYouKnow {...props} />
+          : v.kind === "next-lesson" ? <NextLesson {...props} />
+          : <KeywordHighlight {...props} />}
+      </div>
+      <CourseChrome section={scene.section} label={label} dark={dark} />
+    </AbsoluteFill>
+  );
+}
+
 /** Is the area behind the top-right NAMA logo dark in this scene's actual layout? */
 export function logoAreaIsDark(scene: ScriptScene, sceneIndex: number): boolean {
   if (scene.visual.kind === "title") return true; // opening title: navy brand panel on the right; dividers: navy
   return scene.background ? scene.background === "dark" : sceneIndex > 0 && sceneIndex % 2 === 0;
 }
 
-export function NamaScriptScene({ scene, lessonLabel, sceneIndex }: { scene: ScriptScene; lessonLabel: string; sceneIndex: number }) {
-  const dark = scene.background ? scene.background === "dark" : sceneIndex > 0 && sceneIndex % 2 === 0;
+function isDarkScene(scene: ScriptScene, sceneIndex: number) {
+  return scene.background ? scene.background === "dark" : sceneIndex > 0 && sceneIndex % 2 === 0;
+}
+
+/** How many earlier slides share this slide's brightness — light and dark slides each take the next background in turn. */
+export function backdropTurn(scenes: ScriptScene[], index: number) {
+  const dark = isDarkScene(scenes[index], index);
+  return scenes.slice(0, index).filter((s, i) => isDarkScene(s, i) === dark).length;
+}
+
+export function NamaScriptScene({ scene, lessonLabel, sceneIndex, backdropIndex = sceneIndex }: { scene: ScriptScene; lessonLabel: string; sceneIndex: number; backdropIndex?: number }) {
+  const dark = isDarkScene(scene, sceneIndex);
+  return (
+    <BackdropContext.Provider value={pickBackdrop(dark, backdropIndex, scene.visual.backdrop)}>
+      <SceneBody scene={scene} lessonLabel={lessonLabel} sceneIndex={sceneIndex} dark={dark} />
+    </BackdropContext.Provider>
+  );
+}
+
+function SceneBody({ scene, lessonLabel, sceneIndex, dark }: { scene: ScriptScene; lessonLabel: string; sceneIndex: number; dark: boolean }) {
   const displaySection = scene.visual.kicker ?? scene.section;
   const displayScene = { ...scene, section: displaySection };
   switch (scene.visual.kind) {
@@ -396,7 +485,70 @@ export function NamaScriptScene({ scene, lessonLabel, sceneIndex }: { scene: Scr
     case "stat-tiles":
     case "gears":
     case "definition":
+    case "agenda":
+    case "learning-objectives":
+    case "key-takeaways":
+    case "next-steps":
+    case "quiz-choice":
+    case "true-false":
+    case "tip-callout":
+    case "scenario-card":
+    case "worked-example":
+    case "analogy":
+    case "myth-vs-fact":
+    case "pros-cons":
+    case "pillars":
+    case "hierarchy-tree":
+    case "comparison-table":
+    case "percent-ring":
+    case "line-chart":
+    case "flip-card":
+    case "match-pairs":
+    case "sequence-order":
+    case "predict-reveal":
+    case "agenda-progress":
+    case "q-and-a":
+    case "dialogue":
+    case "glossary":
+    case "icon-array":
+    case "number-change":
+    case "rating-scale":
+    case "column-chart":
+    case "cause-effect":
+    case "formula":
+    case "bridge":
+    case "puzzle":
+    case "growth-tree":
+    case "swot":
+    case "priority-matrix":
+    case "five-whys":
+    case "traffic-light":
+    case "gauge":
+    case "radar":
+    case "concept-map":
+    case "chain":
+    case "domino":
+    case "ripple":
+    case "circles-of-control":
+    case "hourglass":
+    case "zoom-in":
+    case "spiral":
+    case "swimlanes":
+    case "kanban":
+    case "gantt":
+    case "week-plan":
+    case "time-wheel":
+    case "then-now-next":
+    case "head-heart-hands":
+    case "compass":
       return <DiagramScene scene={displayScene} label={lessonLabel} dark={dark} />;
+    case "quote":
+    case "keyword-highlight":
+    case "big-number":
+    case "fill-blank":
+    case "did-you-know":
+    case "next-lesson":
+      return <FeatureScene scene={displayScene} label={lessonLabel} dark={dark} />;
     case "question":
       return <BrandBeat scene={displayScene} label={lessonLabel} dark={dark} />;
     case "outro":

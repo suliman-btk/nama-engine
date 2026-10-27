@@ -1,0 +1,506 @@
+{
+ "Pure narration · 1": [
+  {
+   "visual": {
+    "kind": "title",
+    "title": "Running a Reading Club",
+    "kicker": "Lesson 4"
+   },
+   "why": "opening title"
+  },
+  {
+   "visual": {
+    "kind": "swot",
+    "title": "Our club at a glance",
+    "kicker": "Analysis",
+    "items": [
+     "Strengths|Keen volunteers",
+     "Weaknesses|Little time",
+     "Opportunities|The new library",
+     "Threats|Busy exam season"
+    ],
+    "itemPhrases": [
+     "keen volunteers",
+     "little time",
+     "the new library",
+     "busy exam season"
+    ]
+   },
+   "why": "strength, weakness, opportunity, threat → swot",
+   "atPhrase": "Let's analyse"
+  }
+ ],
+ "Pure narration · 2": [
+  {
+   "visual": {
+    "kind": "priority-matrix",
+    "title": "Sorting the tasks",
+    "kicker": "Priorities",
+    "items": [
+     "Do first|Choose good books",
+     "Plan|Train volunteers",
+     "Share|Make posters",
+     "Drop|Big launch party"
+    ],
+    "itemPhrases": [
+     "choosing good books",
+     "training volunteers",
+     "making posters",
+     "a big launch party"
+    ],
+    "columns": [
+     "Do first",
+     "Plan",
+     "Share",
+     "Drop"
+    ],
+    "leftLabel": "Impact",
+    "rightLabel": "Effort"
+   },
+   "why": "tasks placed by impact and effort → priority-matrix"
+  }
+ ],
+ "Pure narration · 3": [
+  {
+   "visual": {
+    "kind": "five-whys",
+    "title": "Why was it quiet?",
+    "kicker": "Root cause",
+    "items": [
+     "Few students came",
+     "They did not know about it",
+     "We only told one class",
+     "No plan for sharing news"
+    ],
+    "itemPhrases": [
+     "few students came",
+     "did not know",
+     "only told one class",
+     "no plan for sharing"
+    ],
+    "center": "The first meeting was quiet"
+   },
+   "why": "asking why until the root cause → five-whys"
+  }
+ ],
+ "Pure narration · 4": [
+  {
+   "visual": {
+    "kind": "traffic-light",
+    "title": "Rules for noise",
+    "kicker": "Rules",
+    "items": [
+     "Stop|When someone reads aloud",
+     "Careful|With side chats",
+     "Go|Discuss freely in groups"
+    ],
+    "itemPhrases": [
+     "stop when",
+     "be careful",
+     "go ahead"
+    ]
+   },
+   "why": "stop / careful / go rules → traffic-light"
+  }
+ ],
+ "Pure narration · 5": [
+  {
+   "visual": {
+    "kind": "gauge",
+    "title": "How ready are we?",
+    "kicker": "Readiness",
+    "items": [
+     "Not ready",
+     "Getting there",
+     "Almost",
+     "Ready"
+    ],
+    "itemPhrases": [
+     "not ready,",
+     "getting there,",
+     "almost, and",
+     "and ready."
+    ],
+    "current": 3
+   },
+   "why": "levels with the current one named → gauge"
+  }
+ ],
+ "Pure narration · 6": [
+  {
+   "visual": {
+    "kind": "radar",
+    "title": "How our club scores",
+    "kicker": "Profile",
+    "items": [
+     "Books",
+     "Space",
+     "Volunteers",
+     "Promotion"
+    ],
+    "itemPhrases": [
+     "books scored",
+     "space scored",
+     "volunteers scored",
+     "promotion scored"
+    ],
+    "values": [
+     8,
+     6,
+     9,
+     4
+    ]
+   },
+   "why": "scores out of 10 on four dimensions → radar"
+  }
+ ],
+ "Pure narration · 7": [
+  {
+   "visual": {
+    "kind": "concept-map",
+    "title": "How the ideas connect",
+    "kicker": "Connections",
+    "items": [
+     "Reading|builds|Vocabulary",
+     "Vocabulary|improves|Writing",
+     "Discussion|deepens|Reading"
+    ],
+    "itemPhrases": [
+     "reading builds",
+     "vocabulary improves",
+     "discussion deepens"
+    ]
+   },
+   "why": "ideas joined by named relations → concept-map"
+  }
+ ],
+ "Pure narration · 8": [
+  {
+   "visual": {
+    "kind": "chain",
+    "title": "The reading habit chain",
+    "kicker": "Habit",
+    "items": [
+     "Choosing a book",
+     "Making time",
+     "Reading daily",
+     "Talking about it"
+    ],
+    "itemPhrases": [
+     "choosing a book",
+     "book, making time",
+     "reading daily",
+     "talking about it"
+    ],
+    "current": 2
+   },
+   "why": "linked steps with a weakest link → chain"
+  }
+ ],
+ "Pure narration · 9": [
+  {
+   "visual": {
+    "kind": "domino",
+    "title": "A chain reaction",
+    "kicker": "Effects",
+    "items": [
+     "A good first book",
+     "Sparks interest",
+     "More reading",
+     "Builds confidence",
+     "Lifelong readers"
+    ],
+    "itemPhrases": [
+     "a good first book",
+     "sparks interest",
+     "leads to more reading",
+     "builds confidence",
+     "creates lifelong readers"
+    ]
+   },
+   "why": "each step sets off the next → domino"
+  }
+ ],
+ "Pure narration · 10": [
+  {
+   "visual": {
+    "kind": "ripple",
+    "title": "The effect spreads",
+    "kicker": "Ripple",
+    "items": [
+     "A friend reads it",
+     "The class talks about it",
+     "The whole school knows it"
+    ],
+    "itemPhrases": [
+     "a friend reads",
+     "the class talks",
+     "the whole school"
+    ],
+    "center": "One student shares a book"
+   },
+   "why": "one action with widening effects → ripple"
+  }
+ ],
+ "Pure narration · 11": [
+  {
+   "visual": {
+    "kind": "circles-of-control",
+    "title": "What we can change",
+    "kicker": "Focus",
+    "items": [
+     "Control|Our book choices",
+     "Control|Our meeting time",
+     "Influence|Student interest",
+     "Concern|The exam timetable"
+    ],
+    "itemPhrases": [
+     "our book choices",
+     "our meeting time",
+     "student interest",
+     "the exam timetable"
+    ]
+   },
+   "why": "control, influence and concern → circles-of-control"
+  }
+ ],
+ "Pure narration · 12": [
+  {
+   "visual": {
+    "kind": "hourglass",
+    "title": "From many ideas to one focus",
+    "kicker": "Focus",
+    "items": [
+     "Student requests",
+     "Teacher tips",
+     "Library lists",
+     "Shared reading",
+     "Lively talks"
+    ],
+    "itemPhrases": [
+     "student requests",
+     "teacher tips",
+     "library lists",
+     "shared reading",
+     "lively talks"
+    ],
+    "leftCount": 3,
+    "center": "Book of the month"
+   },
+   "why": "inputs narrow to one focus then widen to outcomes → hourglass"
+  }
+ ],
+ "Pure narration · 13": [
+  {
+   "visual": {
+    "kind": "zoom-in",
+    "title": "Zooming in",
+    "kicker": "Zoom",
+    "items": [
+     "Our reading club",
+     "One good conversation"
+    ],
+    "itemPhrases": [
+     "our club",
+     "one good conversation"
+    ],
+    "center": "A reading culture"
+   },
+   "why": "from the big picture to one detail → zoom-in"
+  }
+ ],
+ "Pure narration · 14": [
+  {
+   "visual": {
+    "kind": "spiral",
+    "title": "Deeper each term",
+    "kicker": "Spiral",
+    "items": [
+     "Retell stories",
+     "Compare stories",
+     "Judge stories"
+    ],
+    "itemPhrases": [
+     "we retell",
+     "we compare",
+     "we judge"
+    ]
+   },
+   "why": "the same skill revisited more deeply → spiral"
+  }
+ ],
+ "Pure narration · 15": [
+  {
+   "visual": {
+    "kind": "swimlanes",
+    "title": "Who does what",
+    "kicker": "Roles",
+    "items": [
+     "Teacher|Pick the books",
+     "Students|Read the books",
+     "Librarian|Order copies",
+     "Students|Lead the talk"
+    ],
+    "itemPhrases": [
+     "picks the books",
+     "students read them",
+     "orders copies",
+     "lead the talk"
+    ]
+   },
+   "why": "tasks by role in order → swimlanes"
+  }
+ ],
+ "Pure narration · 16": [
+  {
+   "visual": {
+    "kind": "kanban",
+    "title": "Where our tasks stand",
+    "kicker": "Status",
+    "items": [
+     "To do|Make a sign up sheet",
+     "Doing|Choose the first book",
+     "Done|Book the room"
+    ],
+    "itemPhrases": [
+     "make a sign up sheet",
+     "choose the first book",
+     "book the room"
+    ]
+   },
+   "why": "tasks by status → kanban"
+  }
+ ],
+ "Pure narration · 17": [
+  {
+   "visual": {
+    "kind": "gantt",
+    "title": "The plan by week",
+    "kicker": "Schedule",
+    "items": [
+     "Planning|1|2",
+     "Reading|2|5",
+     "Final talk|6|6"
+    ],
+    "itemPhrases": [
+     "planning runs",
+     "reading runs",
+     "the final talk"
+    ]
+   },
+   "why": "tasks with spoken start and end weeks → gantt"
+  }
+ ],
+ "Pure narration · 18": [
+  {
+   "visual": {
+    "kind": "week-plan",
+    "title": "Our week",
+    "kicker": "Week",
+    "items": [
+     "Monday|Choose",
+     "Wednesday|Read together",
+     "Friday|Talk"
+    ],
+    "itemPhrases": [
+     "on monday",
+     "on wednesday",
+     "on friday"
+    ]
+   },
+   "why": "activities by day → week-plan"
+  }
+ ],
+ "Pure narration · 19": [
+  {
+   "visual": {
+    "kind": "time-wheel",
+    "title": "One meeting, one hour",
+    "kicker": "Time",
+    "items": [
+     "Warm up|10",
+     "Reading|30",
+     "Talking|20"
+    ],
+    "itemPhrases": [
+     "on a warm up",
+     "30 minutes reading",
+     "20 minutes talking"
+    ]
+   },
+   "why": "minutes shared within an hour → time-wheel"
+  }
+ ],
+ "Pure narration · 20": [
+  {
+   "visual": {
+    "kind": "then-now-next",
+    "title": "Then, now, next",
+    "kicker": "Journey",
+    "items": [
+     "Few students read for fun",
+     "The club meets every week",
+     "A reading corner in every class"
+    ],
+    "itemPhrases": [
+     "then, only",
+     "now, our",
+     "next, we"
+    ]
+   },
+   "why": "past, present and future → then-now-next"
+  }
+ ],
+ "Pure narration · 21": [
+  {
+   "visual": {
+    "kind": "head-heart-hands",
+    "title": "Three ways a reader grows",
+    "kicker": "Growth",
+    "items": [
+     "Understand stories",
+     "Enjoy them",
+     "Share them"
+    ],
+    "itemPhrases": [
+     "understand stories",
+     "they enjoy them",
+     "they share them"
+    ]
+   },
+   "why": "know, feel, do → head-heart-hands"
+  }
+ ],
+ "Pure narration · 22": [
+  {
+   "visual": {
+    "kind": "compass",
+    "title": "Values that guide us",
+    "kicker": "Values",
+    "items": [
+     "Curiosity",
+     "Kindness",
+     "Effort",
+     "Fun"
+    ],
+    "itemPhrases": [
+     "curiosity points",
+     "kindness points",
+     "effort points",
+     "fun points"
+    ]
+   },
+   "why": "four guiding values → compass"
+  }
+ ],
+ "Pure narration · 23": [
+  {
+   "visual": {
+    "kind": "outro",
+    "title": "See you in the next lesson",
+    "kicker": "Thank you"
+   },
+   "why": "closing"
+  }
+ ]
+}
