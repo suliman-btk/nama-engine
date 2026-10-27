@@ -32,7 +32,7 @@ fs.mkdirSync(outDir, { recursive: true });
 function completeTime(i) {
   const s = scenes[i];
   if (i === 0) return 3.0;
-  const lastItem = Math.max(0, ...(s.visual.itemStartSeconds ?? [0]));
+  const lastItem = Math.max(0, ...(s.visual.itemStartSeconds ?? [0]), s.visual.revealStartSeconds ?? 0);
   const built = s.startSeconds + lastItem + 0.6;
   const leaving = i + 1 < scenes.length ? scenes[i + 1].startSeconds - 1.1 : s.startSeconds + s.durationSeconds - 0.2;
   let t = Math.min(Math.max(built, s.startSeconds + 0.9), leaving);

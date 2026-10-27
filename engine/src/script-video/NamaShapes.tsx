@@ -267,7 +267,7 @@ export function GrowthTree({ items, dark, itemStartSeconds, center }: P) {
   const H = 590;
   const tx = W / 2;
   const ground = 452;
-  const trunkTop = 340;
+  const trunkTop = 280;
   const trunk = clamp01(grow(frame, fps, 0));
   const cardW = Math.min(290, 1240 / Math.max(1, n - 1) - 24);
   const leaf = (i: number) => {
@@ -307,7 +307,7 @@ export function GrowthTree({ items, dark, itemStartSeconds, center }: P) {
       })}
       {center ? (
         <div style={{ position: "absolute", left: tx - 230, top: ground + 92, width: 460, textAlign: "center", opacity: trunk }}>
-          <span style={{ display: "inline-block", padding: "10px 30px", borderRadius: 999, background: dark ? "#FFFFFF" : c.navy, color: dark ? c.navy : "#FFFFFF", fontSize: 25, fontWeight: 900, border: `3px solid ${c.accent}` }}>{center}</span>
+          <span style={{ display: "inline-block", padding: "14px 40px", borderRadius: 999, background: dark ? "#FFFFFF" : c.navy, color: dark ? c.navy : "#FFFFFF", fontSize: 34, fontWeight: 900, border: `4px solid ${c.accent}`, boxShadow: "0 16px 36px rgba(2,1,129,0.22)" }}>{center}</span>
         </div>
       ) : null}
     </div>

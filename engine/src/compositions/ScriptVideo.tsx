@@ -6,7 +6,7 @@ import courseConfigRaw from "../../../course-config.json";
 import { CourseConfigContext } from "../course/CourseContext";
 import { parseCourseConfig } from "../course/schema";
 import { LessonLabelContext } from "../slides/SlideFrame";
-import { NamaScriptScene, logoAreaIsDark } from "../script-video/NamaScriptScene";
+import { NamaScriptScene, backdropTurn, logoAreaIsDark } from "../script-video/NamaScriptScene";
 import { SubtitleLayer } from "../script-video/SubtitleLayer";
 import { SceneTransition } from "../script-video/SceneTransition";
 import { validateScriptVideoManifest } from "../script-video/schema";
@@ -142,7 +142,7 @@ export function ScriptVideo() {
               <React.Fragment key={scene.id}>
                 <Sequence from={from} durationInFrames={durationInFrames} name={scene.id}>
                   <SceneTransition sceneIndex={index} revealFrames={Math.round(reveal * fps)} logoOnDark={logoAreaIsDark(scene, index)} hideLogo={index === 0 && scene.visual.kind === "title"}>
-                    <NamaScriptScene scene={shifted} lessonLabel={manifest.lessonLabel} sceneIndex={index} />
+                    <NamaScriptScene scene={shifted} lessonLabel={manifest.lessonLabel} sceneIndex={index} backdropIndex={backdropTurn(scenes, index)} />
                   </SceneTransition>
                 </Sequence>
                 {courseConfig.subtitles === false ? null : <Sequence from={Math.round((index === 0 ? scene.startSeconds : scene.startSeconds + lead) * fps)} durationInFrames={Math.max(1, Math.round((scene.durationSeconds + (index === 0 ? lead : 0)) * fps))} name={`${scene.id}-captions`}>

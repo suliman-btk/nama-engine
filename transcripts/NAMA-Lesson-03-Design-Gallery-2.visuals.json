@@ -1,0 +1,417 @@
+{
+ "Pure narration · 1": [
+  {
+   "visual": {
+    "kind": "title",
+    "title": "Helping Learners Remember",
+    "kicker": "Lesson 3"
+   },
+   "why": "opening title"
+  },
+  {
+   "visual": {
+    "kind": "did-you-know",
+    "title": "Did you know?",
+    "kicker": "Hook",
+    "items": [
+     "Learners who test themselves remember far more than learners who simply read their notes again."
+    ],
+    "itemPhrases": [
+     "who test themselves"
+    ]
+   },
+   "why": "surprising fact to open the lesson → did-you-know",
+   "atPhrase": "Here is something"
+  }
+ ],
+ "Pure narration · 2": [
+  {
+   "visual": {
+    "kind": "agenda-progress",
+    "title": "Where we are",
+    "kicker": "Lesson map",
+    "items": [
+     "Recall",
+     "Practice",
+     "Feedback",
+     "Review"
+    ],
+    "itemPhrases": [
+     "four parts: recall",
+     "practice,",
+     "feedback,",
+     "and review"
+    ],
+    "current": 1
+   },
+   "why": "lesson parts with the current part named → agenda-progress"
+  }
+ ],
+ "Pure narration · 3": [
+  {
+   "visual": {
+    "kind": "glossary",
+    "title": "Two key words",
+    "kicker": "Words",
+    "items": [
+     "Retrieval|Pulling a memory back out",
+     "Spacing|Leaving time between practice sessions"
+    ],
+    "itemPhrases": [
+     "retrieval means",
+     "spacing means"
+    ]
+   },
+   "why": "two terms with their meanings → glossary"
+  }
+ ],
+ "Pure narration · 4": [
+  {
+   "visual": {
+    "kind": "flip-card",
+    "title": "Try this card",
+    "kicker": "Recall",
+    "items": [
+     "What is the forgetting curve?|Memories fade quickly unless we review them"
+    ],
+    "itemPhrases": [
+     "memories fade quickly"
+    ]
+   },
+   "why": "a recall prompt answered by the narrator → flip-card"
+  }
+ ],
+ "Pure narration · 5": [
+  {
+   "visual": {
+    "kind": "fill-blank",
+    "title": "We remember what we practise retrieving.",
+    "kicker": "Recall",
+    "items": [
+     "retrieving"
+    ],
+    "itemPhrases": [
+     "practise retrieving"
+    ]
+   },
+   "why": "complete-the-sentence with one key word → fill-blank"
+  }
+ ],
+ "Pure narration · 6": [
+  {
+   "visual": {
+    "kind": "match-pairs",
+    "title": "Match each habit to its benefit",
+    "kicker": "Practice",
+    "items": [
+     "Quizzing|Builds recall",
+     "Spacing|Beats cramming",
+     "Mixing topics|Sharpens choices"
+    ],
+    "itemPhrases": [
+     "builds recall",
+     "beats cramming",
+     "sharpens choices"
+    ]
+   },
+   "why": "habits matched with benefits → match-pairs"
+  }
+ ],
+ "Pure narration · 7": [
+  {
+   "visual": {
+    "kind": "sequence-order",
+    "title": "Put the steps in order",
+    "kicker": "Practice",
+    "items": [
+     "Read the text",
+     "Close the book",
+     "Write what you remember",
+     "Check your notes"
+    ],
+    "itemPhrases": [
+     "read the text",
+     "close the book",
+     "write what you remember",
+     "check your notes"
+    ]
+   },
+   "why": "narrator asks to order the steps → sequence-order"
+  }
+ ],
+ "Pure narration · 8": [
+  {
+   "visual": {
+    "kind": "predict-reveal",
+    "title": "Which group remembered more?",
+    "kicker": "Predict",
+    "items": [
+     "The group that tested themselves remembered much more"
+    ],
+    "itemPhrases": [
+     "the group that tested"
+    ],
+    "center": "Two groups study the same text: one rereads it, one tests itself"
+   },
+   "why": "a situation, a question, then the result → predict-reveal"
+  }
+ ],
+ "Pure narration · 9": [
+  {
+   "visual": {
+    "kind": "q-and-a",
+    "title": "Common questions",
+    "kicker": "Questions",
+    "items": [
+     "How often should I review?",
+     "How long should a session be?",
+     "A little every few days",
+     "About twenty minutes works well"
+    ],
+    "itemPhrases": [
+     "how often should",
+     "how long should",
+     "every few days",
+     "twenty minutes"
+    ],
+    "leftCount": 2
+   },
+   "why": "two questions each answered → q-and-a"
+  }
+ ],
+ "Pure narration · 10": [
+  {
+   "visual": {
+    "kind": "dialogue",
+    "title": "A short conversation",
+    "kicker": "Conversation",
+    "items": [
+     "Sara|Should I reread my notes?",
+     "Omar|Try to recall them first.",
+     "Sara|That sounds harder.",
+     "Omar|Harder is better for memory."
+    ],
+    "itemPhrases": [
+     "should I reread",
+     "try to recall",
+     "that sounds harder",
+     "harder is better"
+    ]
+   },
+   "why": "two people talking → dialogue"
+  }
+ ],
+ "Pure narration · 11": [
+  {
+   "visual": {
+    "kind": "icon-array",
+    "title": "Quizzes help",
+    "kicker": "Survey",
+    "items": [
+     "8/10|learners said quizzes helped them remember"
+    ],
+    "itemPhrases": [
+     "eight learners"
+    ]
+   },
+   "why": "\"eight out of ten\" → icon-array"
+  }
+ ],
+ "Pure narration · 12": [
+  {
+   "visual": {
+    "kind": "number-change",
+    "title": "Scores before and after quizzes",
+    "kicker": "Example",
+    "items": [
+     "55%|Before weekly quizzes",
+     "78%|After weekly quizzes"
+    ],
+    "itemPhrases": [
+     "from 55 percent",
+     "to 78 percent"
+    ]
+   },
+   "why": "a value before and after → number-change"
+  }
+ ],
+ "Pure narration · 13": [
+  {
+   "visual": {
+    "kind": "rating-scale",
+    "title": "How learners rated two habits",
+    "kicker": "Ratings",
+    "items": [
+     "Rereading",
+     "Self quizzing"
+    ],
+    "itemPhrases": [
+     "rereading scored",
+     "self quizzing scored"
+    ],
+    "values": [
+     2,
+     4
+    ]
+   },
+   "why": "spoken ratings out of 5 → rating-scale"
+  }
+ ],
+ "Pure narration · 14": [
+  {
+   "visual": {
+    "kind": "column-chart",
+    "title": "Remembered after one week",
+    "kicker": "Example",
+    "items": [
+     "Rereading",
+     "Highlighting",
+     "Self testing"
+    ],
+    "itemPhrases": [
+     "with rereading",
+     "with highlighting",
+     "with self testing"
+    ],
+    "values": [
+     30,
+     25,
+     60
+    ],
+    "unit": "%",
+    "center": "Testing wins"
+   },
+   "why": "spoken percentages compared → column-chart"
+  }
+ ],
+ "Pure narration · 15": [
+  {
+   "visual": {
+    "kind": "cause-effect",
+    "title": "Why learners forget",
+    "kicker": "Causes",
+    "items": [
+     "No review",
+     "Sessions too long",
+     "Little sleep",
+     "Stress"
+    ],
+    "itemPhrases": [
+     "no review",
+     "too long",
+     "little sleep",
+     "feel stressed"
+    ],
+    "center": "Forgetting"
+   },
+   "why": "several causes lead to one effect → cause-effect"
+  }
+ ],
+ "Pure narration · 16": [
+  {
+   "visual": {
+    "kind": "formula",
+    "title": "The recipe for memory",
+    "kicker": "Recipe",
+    "items": [
+     "Recall",
+     "Spacing",
+     "Feedback",
+     "Lasting memory"
+    ],
+    "itemPhrases": [
+     "Recall plus",
+     "spacing plus",
+     "feedback equals",
+     "lasting memory"
+    ]
+   },
+   "why": "\"A plus B plus C equals D\" → formula"
+  }
+ ],
+ "Pure narration · 17": [
+  {
+   "visual": {
+    "kind": "bridge",
+    "title": "From forgetting to remembering",
+    "kicker": "The way across",
+    "items": [
+     "Short quizzes",
+     "Spaced reviews",
+     "Quick feedback"
+    ],
+    "itemPhrases": [
+     "short quizzes",
+     "spaced reviews",
+     "quick feedback"
+    ],
+    "leftLabel": "Forgetting",
+    "rightLabel": "Remembering"
+   },
+   "why": "steps that close a gap → bridge"
+  }
+ ],
+ "Pure narration · 18": [
+  {
+   "visual": {
+    "kind": "puzzle",
+    "title": "The memory puzzle",
+    "kicker": "Memory",
+    "items": [
+     "Attention",
+     "Practice",
+     "Sleep"
+    ],
+    "itemPhrases": [
+     "pieces: attention",
+     "practice,",
+     "and sleep"
+    ],
+    "center": "Learning lasts"
+   },
+   "why": "pieces that fit together into a whole → puzzle"
+  }
+ ],
+ "Pure narration · 19": [
+  {
+   "visual": {
+    "kind": "growth-tree",
+    "title": "Everything grows from curiosity",
+    "kicker": "Curiosity",
+    "items": [
+     "Questions",
+     "Notes",
+     "Discussions",
+     "Projects"
+    ],
+    "itemPhrases": [
+     "grow questions",
+     "notes,",
+     "discussions,",
+     "and projects"
+    ],
+    "center": "Curiosity"
+   },
+   "why": "one root grows several practices → growth-tree"
+  }
+ ],
+ "Pure narration · 20": [
+  {
+   "visual": {
+    "kind": "next-lesson",
+    "title": "Thank you for watching",
+    "kicker": "Closing",
+    "items": [
+     "What to say",
+     "When to say it"
+    ],
+    "itemPhrases": [
+     "what to say",
+     "when to say it"
+    ],
+    "center": "Feedback that works"
+   },
+   "why": "closing with the next lesson → next-lesson"
+  }
+ ]
+}

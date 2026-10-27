@@ -1,0 +1,455 @@
+{
+ "Pure narration · 1": [
+  {
+   "visual": {
+    "kind": "title",
+    "title": "Designing a Clear Lesson",
+    "kicker": "Lesson 2"
+   },
+   "why": "opening title"
+  },
+  {
+   "visual": {
+    "kind": "agenda",
+    "title": "What we will cover",
+    "kicker": "Agenda",
+    "items": [
+     "Goals",
+     "Plan the steps",
+     "Check understanding",
+     "Close the lesson well"
+    ],
+    "itemPhrases": [
+     "start with goals",
+     "plan the steps",
+     "check understanding",
+     "close the lesson well"
+    ]
+   },
+   "why": "narrator previews the parts of the lesson in order → agenda",
+   "atPhrase": "We start with"
+  }
+ ],
+ "Pure narration · 2": [
+  {
+   "visual": {
+    "kind": "learning-objectives",
+    "title": "Your learning goals",
+    "kicker": "Goals",
+    "items": [
+     "Write a clear learning goal",
+     "Plan a lesson in small steps",
+     "Check what learners understand"
+    ],
+    "itemPhrases": [
+     "write a clear learning goal",
+     "plan a lesson in small steps",
+     "check what your learners understand"
+    ],
+    "center": "By the end of this lesson, you will be able to"
+   },
+   "why": "narrator states what learners will be able to do → learning-objectives"
+  }
+ ],
+ "Pure narration · 3": [
+  {
+   "visual": {
+    "kind": "quote",
+    "title": "Words to remember",
+    "kicker": "Goals",
+    "items": [
+     "A goal without a plan is just a wish."
+    ],
+    "itemPhrases": [
+     "a goal without a plan"
+    ],
+    "center": "Antoine de Saint-Exupéry"
+   },
+   "why": "narrator quotes a saying → quote"
+  }
+ ],
+ "Pure narration · 4": [
+  {
+   "visual": {
+    "kind": "keyword-highlight",
+    "title": "A good goal is specific, observable, and achievable.",
+    "kicker": "Remember",
+    "items": [
+     "specific",
+     "observable",
+     "achievable"
+    ],
+    "itemPhrases": [
+     "is specific",
+     "observable",
+     "and achievable"
+    ]
+   },
+   "why": "one key sentence with three stressed words → keyword-highlight"
+  }
+ ],
+ "Pure narration · 5": [
+  {
+   "visual": {
+    "kind": "pillars",
+    "title": "Three pillars of a strong lesson",
+    "kicker": "Foundations",
+    "items": [
+     "Clear goals",
+     "Active practice",
+     "Honest feedback"
+    ],
+    "itemPhrases": [
+     "clear goals",
+     "active practice",
+     "honest feedback"
+    ],
+    "center": "A strong lesson"
+   },
+   "why": "narrator says the lesson rests on three pillars → pillars"
+  }
+ ],
+ "Pure narration · 6": [
+  {
+   "visual": {
+    "kind": "hierarchy-tree",
+    "title": "Two parts of a lesson plan",
+    "kicker": "Planning",
+    "items": [
+     "Content",
+     "Content|Key ideas",
+     "Content|Examples",
+     "Activities",
+     "Activities|Practice",
+     "Activities|Discussion"
+    ],
+    "itemPhrases": [
+     "is content",
+     "the key ideas",
+     "and the examples",
+     "is activities",
+     "covers practice",
+     "and discussion"
+    ],
+    "center": "Planning a lesson"
+   },
+   "why": "one idea split into parts and sub-parts → hierarchy-tree"
+  }
+ ],
+ "Pure narration · 7": [
+  {
+   "visual": {
+    "kind": "scenario-card",
+    "title": "A case from the classroom",
+    "kicker": "Case",
+    "items": [
+     "Situation|A mixed class of beginners and experts",
+     "Challenge|Half the class felt bored",
+     "Resolution|Extension tasks for the experts"
+    ],
+    "itemPhrases": [
+     "a mixed class",
+     "felt bored",
+     "giving extension tasks"
+    ]
+   },
+   "why": "narrator tells a case: situation, challenge, resolution → scenario-card"
+  }
+ ],
+ "Pure narration · 8": [
+  {
+   "visual": {
+    "kind": "worked-example",
+    "title": "Plan a sixty-minute lesson",
+    "kicker": "Example",
+    "items": [
+     "Warm up|10 min",
+     "Practice|30 min",
+     "Feedback|10 min",
+     "Summary|10 min"
+    ],
+    "itemPhrases": [
+     "the warm up",
+     "to practice",
+     "to feedback",
+     "for the summary"
+    ],
+    "center": "A lesson lasts sixty minutes"
+   },
+   "why": "narrator works through an example step by step → worked-example"
+  }
+ ],
+ "Pure narration · 9": [
+  {
+   "visual": {
+    "kind": "analogy",
+    "title": "A lesson plan is like a map",
+    "kicker": "Analogy",
+    "items": [
+     "Learning goal|Destination",
+     "Each activity|A road that leads there"
+    ],
+    "itemPhrases": [
+     "the destination",
+     "a road"
+    ],
+    "leftLabel": "A lesson plan",
+    "rightLabel": "A map"
+   },
+   "why": "\"X is like Y\" with matching parts → analogy"
+  }
+ ],
+ "Pure narration · 10": [
+  {
+   "visual": {
+    "kind": "tip-callout",
+    "title": "Asking questions",
+    "kicker": "Tip",
+    "items": [
+     "Ask one question at a time",
+     "Wait at least three seconds for an answer"
+    ],
+    "itemPhrases": [
+     "ask one question",
+     "wait at least three seconds"
+    ],
+    "joiner": "Tip"
+   },
+   "why": "narrator gives a tip → tip-callout"
+  }
+ ],
+ "Pure narration · 11": [
+  {
+   "visual": {
+    "kind": "myth-vs-fact",
+    "title": "Myths about learning",
+    "kicker": "Myths",
+    "items": [
+     "Longer lessons teach more",
+     "Learners remember what they hear",
+     "Short, focused lessons keep attention",
+     "Learners remember what they practise"
+    ],
+    "itemPhrases": [
+     "longer lessons teach more",
+     "remember what they hear",
+     "short and focused lessons",
+     "remember what they practise"
+    ],
+    "leftCount": 2
+   },
+   "why": "narrator corrects two misconceptions → myth-vs-fact"
+  }
+ ],
+ "Pure narration · 12": [
+  {
+   "visual": {
+    "kind": "pros-cons",
+    "title": "Should you use group work?",
+    "kicker": "Group work",
+    "items": [
+     "Builds teamwork",
+     "Learners teach each other",
+     "Takes more time",
+     "Some learners stay quiet"
+    ],
+    "itemPhrases": [
+     "builds teamwork",
+     "teach each other",
+     "takes more time",
+     "stay quiet"
+    ],
+    "leftCount": 2,
+    "leftLabel": "Benefits",
+    "rightLabel": "Costs",
+    "center": "Group work"
+   },
+   "why": "narrator weighs benefits and costs of one option → pros-cons"
+  }
+ ],
+ "Pure narration · 13": [
+  {
+   "visual": {
+    "kind": "comparison-table",
+    "title": "Three ways to teach",
+    "kicker": "Compare",
+    "items": [
+     "Speed|Fast|Slower|Slowest",
+     "Preparation|Little|Some|Most",
+     "Active learning|No|Partly|Yes"
+    ],
+    "itemPhrases": [
+     "a lecture is fast",
+     "needs little preparation",
+     "is not very active"
+    ],
+    "columns": [
+     "Lecture",
+     "Discussion",
+     "Project"
+    ]
+   },
+   "why": "three options compared on three criteria → comparison-table"
+  }
+ ],
+ "Pure narration · 14": [
+  {
+   "visual": {
+    "kind": "big-number",
+    "title": "Keep your videos short",
+    "kicker": "Research",
+    "items": [
+     "6|minutes or less keeps learners engaged"
+    ],
+    "itemPhrases": [
+     "six minutes long"
+    ],
+    "center": "One large study of online courses"
+   },
+   "why": "narrator states one key figure → big-number"
+  }
+ ],
+ "Pure narration · 15": [
+  {
+   "visual": {
+    "kind": "percent-ring",
+    "title": "An imagined school survey",
+    "kicker": "Survey",
+    "items": [
+     "Plan their goals first",
+     "Check understanding every lesson"
+    ],
+    "itemPhrases": [
+     "plan their goals first",
+     "check understanding in every lesson"
+    ],
+    "values": [
+     80,
+     45
+    ],
+    "unit": "%"
+   },
+   "why": "two spoken percentages → percent-ring"
+  }
+ ],
+ "Pure narration · 16": [
+  {
+   "visual": {
+    "kind": "line-chart",
+    "title": "Scores rise with weekly practice",
+    "kicker": "Practice",
+    "items": [
+     "Week 1",
+     "Week 2",
+     "Week 3",
+     "Week 4"
+    ],
+    "itemPhrases": [
+     "week one,",
+     "week two,",
+     "week three,",
+     "week four,"
+    ],
+    "values": [
+     50,
+     58,
+     67,
+     75
+    ],
+    "center": "Practice adds up"
+   },
+   "why": "spoken values over four weeks → line-chart"
+  }
+ ],
+ "Pure narration · 17": [
+  {
+   "visual": {
+    "kind": "quiz-choice",
+    "title": "Which goal is easiest to observe?",
+    "kicker": "Quick check",
+    "items": [
+     "Understand fractions",
+     "Add two fractions with the same denominator",
+     "Appreciate maths"
+    ],
+    "itemPhrases": [
+     "understand fractions",
+     "add two fractions",
+     "appreciate maths"
+    ],
+    "answer": 2,
+    "revealPhrase": "answer is B"
+   },
+   "why": "narrator asks a question with options and gives the answer → quiz-choice"
+  }
+ ],
+ "Pure narration · 18": [
+  {
+   "visual": {
+    "kind": "true-false",
+    "title": "True or false?",
+    "kicker": "Quick check",
+    "items": [
+     "Feedback works best weeks later|False"
+    ],
+    "itemPhrases": [
+     "comes weeks later"
+    ],
+    "revealPhrase": "That is false"
+   },
+   "why": "narrator asks true or false and gives the verdict → true-false"
+  }
+ ],
+ "Pure narration · 19": [
+  {
+   "visual": {
+    "kind": "key-takeaways",
+    "title": "Key takeaways",
+    "kicker": "Summary",
+    "items": [
+     "Start with a clear goal",
+     "Teach in small steps",
+     "Check understanding often",
+     "Give quick feedback"
+    ],
+    "itemPhrases": [
+     "start with a clear goal",
+     "teach in small steps",
+     "check understanding often",
+     "give quick feedback"
+    ]
+   },
+   "why": "narrator sums up the points to remember → key-takeaways"
+  }
+ ],
+ "Pure narration · 20": [
+  {
+   "visual": {
+    "kind": "next-steps",
+    "title": "Your next steps",
+    "kicker": "Next",
+    "items": [
+     "Choose one lesson for this week",
+     "Rewrite its goal",
+     "Add one quick check"
+    ],
+    "itemPhrases": [
+     "choose one lesson",
+     "rewrite its goal",
+     "add one quick check"
+    ]
+   },
+   "why": "narrator tells learners what to do next → next-steps"
+  }
+ ],
+ "Pure narration · 21": [
+  {
+   "visual": {
+    "kind": "outro",
+    "title": "See you in the next lesson",
+    "kicker": "Thank you"
+   },
+   "why": "closing"
+  }
+ ]
+}

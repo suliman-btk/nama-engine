@@ -35,7 +35,25 @@ VISUAL_KINDS = {
     "target", "quadrant", "roadmap-path", "layer-stack", "before-after",
     "funnel", "spectrum", "balance", "decision-tree",
     "iceberg", "stat-tiles", "gears", "definition",
+    "agenda", "learning-objectives", "key-takeaways", "next-steps",
+    "quiz-choice", "true-false", "tip-callout", "scenario-card", "worked-example", "analogy",
+    "myth-vs-fact", "pros-cons", "pillars", "hierarchy-tree", "comparison-table",
+    "percent-ring", "line-chart", "quote", "keyword-highlight", "big-number",
+    "flip-card", "fill-blank", "match-pairs", "sequence-order", "predict-reveal",
+    "agenda-progress", "did-you-know", "q-and-a", "dialogue", "next-lesson", "glossary",
+    "icon-array", "number-change", "rating-scale", "column-chart",
+    "cause-effect", "formula", "bridge", "puzzle", "growth-tree",
+    "swot", "priority-matrix", "five-whys", "traffic-light", "gauge", "radar",
+    "concept-map", "chain", "domino", "ripple", "circles-of-control", "hourglass", "zoom-in", "spiral",
+    "swimlanes", "kanban", "gantt", "week-plan", "time-wheel", "then-now-next", "head-heart-hands", "compass",
 }
+# Slide background styles (see engine/src/script-video/NamaBackdrops.tsx). A light slide uses the
+# light ones, a dark slide the dark ones; a name that does not suit the slide is ignored.
+BACKDROPS = {"halo", "dots", "edge", "wash", "grid", "arcs", "glow", "stripes", "constellation", "waves", "mesh"}
+# Designs whose cards sit in columns, so they may be spoken in a different order than listed.
+COLUMN_KINDS = {"before-after", "comparison", "balance", "iceberg", "myth-vs-fact", "pros-cons", "q-and-a",
+                "swot", "priority-matrix", "circles-of-control", "hourglass", "kanban"}
+NUMBER_RE = re.compile(r"^\s*[^\d\s|-]{0,2}-?\d[\d,]*(\.\d+)?\s*[^|]{0,4}\|\s*\S")
 
 
 @dataclass
@@ -235,6 +253,9 @@ def validate_visual(visual: Any, context: str) -> dict[str, Any]:
     left_count = visual.get("leftCount")
     if left_count is not None and (not isinstance(left_count, int) or not isinstance(items, list) or not 1 <= left_count < len(items)):
         raise ValueError(f"leftCount must split items into two non-empty columns: {context}")
+    backdrop = visual.get("backdrop")
+    if backdrop is not None and backdrop not in BACKDROPS:
+        raise ValueError(f"Visual backdrop must be one of {', '.join(sorted(BACKDROPS))}: {context}")
     for key in ("unit", "center", "leftLabel", "rightLabel", "joiner"):
         if visual.get(key) is not None and not isinstance(visual.get(key), str):
             raise ValueError(f"Visual {key} must be text: {context}")
@@ -254,6 +275,7 @@ def validate_visual(visual: Any, context: str) -> dict[str, Any]:
         raise ValueError(f"stat-tiles items must look like '5|Domains': {context}")
     if kind == "spectrum" and values is not None and not all(0 <= v <= 100 for v in values):
         raise ValueError(f"spectrum values are positions from 0 to 100: {context}")
+    validate_lesson_visual(visual, kind, items if isinstance(items, list) else [], values, left_count, context)
     item_phrases = visual.get("itemPhrases")
     if item_phrases is not None:
         if not isinstance(item_phrases, list) or not all(isinstance(phrase, str) and phrase.strip() for phrase in item_phrases):
@@ -261,6 +283,134 @@ def validate_visual(visual: Any, context: str) -> dict[str, Any]:
         if not isinstance(items, list) or len(item_phrases) != len(items):
             raise ValueError(f"Visual itemPhrases must match items one-for-one: {context}")
     return visual
+
+
+def validate_lesson_visual(visual: dict[str, Any], kind: str, items: list[str], values: Any, left_count: Any, context: str) -> None:
+    """Shape rules for the lesson-flow, insight and full-slide designs."""
+    def need(ok: bool, message: str) -> None:
+        if not ok:
+            raise ValueError(f"{message}: {context}")
+
+    reveal = visual.get("revealPhrase")
+    need(reveal is None or (isinstance(reveal, str) and reveal.strip() != ""), "revealPhrase must be text")
+    if kind in {"quiz-choice", "true-false"}:
+        need(bool(reveal), f"A {kind} visual needs revealPhrase (the words where the answer is spoken)")
+    if kind == "quiz-choice":
+        answer = visual.get("answer")
+        need(isinstance(answer, int) and not isinstance(answer, bool) and 1 <= answer <= len(items), "quiz-choice needs answer: the number of the correct option (1 = first)")
+    if kind == "true-false":
+        need(all(re.search(r"\|\s*(true|false)\s*$", item, re.IGNORECASE) for item in items), "true-false items must look like 'Statement|True' or 'Statement|False'")
+    columns = visual.get("columns")
+    if columns is not None:
+        need(kind in {"comparison-table", "priority-matrix", "kanban"}, "columns is only used by comparison-table, priority-matrix and kanban")
+        need(isinstance(columns, list) and all(isinstance(col, str) and col.strip() for col in columns), "columns must be a list of headings")
+    if kind == "comparison-table":
+        need(isinstance(columns, list) and 2 <= len(columns) <= 4, "comparison-table needs columns: 2 to 4 option headings")
+        need(all(item.count("|") == len(columns) for item in items), "comparison-table rows must look like 'Criterion|cell|cell' with one cell per column")
+    if kind == "priority-matrix":
+        need(isinstance(columns, list) and len(columns) == 4, "priority-matrix needs columns: the 4 quadrant names (top left, top right, bottom left, bottom right)")
+        need(bool(visual.get("leftLabel")) and bool(visual.get("rightLabel")), "priority-matrix needs leftLabel (the vertical axis) and rightLabel (the horizontal axis)")
+        names = [col.strip().lower() for col in columns]
+        need(all(item.count("|") == 1 and item.split("|")[0].strip().lower() in names for item in items), "priority-matrix items must look like 'Quadrant name|text', using a name from columns")
+        need(all(sum(1 for item in items if item.split("|")[0].strip().lower() == q) <= 2 for q in names), "priority-matrix holds at most 2 items per quadrant")
+    if kind == "kanban":
+        names = [col.strip().lower() for col in (columns or ["To do", "Doing", "Done"])]
+        need(2 <= len(names) <= 4, "kanban has 2 to 4 columns")
+        need(all(item.count("|") == 1 and item.split("|")[0].strip().lower() in names for item in items), f"kanban items must look like 'Column|card', using one of: {', '.join(names)}")
+        need(all(sum(1 for item in items if item.split("|")[0].strip().lower() == q) <= 4 for q in names), "kanban holds at most 4 cards per column")
+    if kind in {"myth-vs-fact", "pros-cons"}:
+        need(left_count is not None, f"A {kind} visual needs leftCount (how many items are myths / pros)")
+    if kind == "myth-vs-fact":
+        need(left_count * 2 == len(items), "myth-vs-fact needs one fact per myth: list the myths, then the facts, with leftCount = number of myths")
+    if kind == "pros-cons" and left_count is not None:
+        need(left_count <= 4 and len(items) - left_count <= 4, "pros-cons holds at most 4 items per side")
+    if kind == "analogy":
+        need(bool(visual.get("leftLabel")) and bool(visual.get("rightLabel")), "analogy needs leftLabel (the new idea) and rightLabel (the familiar thing)")
+        need(all(item.count("|") == 1 for item in items), "analogy items must look like 'part of the idea|matching part of the familiar thing'")
+    if kind in {"pillars", "hierarchy-tree"}:
+        need(bool(visual.get("center")), f"A {kind} visual needs center (the main idea)")
+    if kind == "hierarchy-tree":
+        branches = [item.strip().lower() for item in items if "|" not in item]
+        need(2 <= len(branches) <= 4, "hierarchy-tree needs 2 to 4 branches (items without '|')")
+        need(bool(items) and "|" not in items[0], "hierarchy-tree must start with a branch")
+        for item in items:
+            if "|" in item:
+                owner = item.split("|", 1)[0].strip().lower()
+                need(owner in branches, f"hierarchy-tree leaf {item!r} must name its branch before the '|'")
+        need(all(sum(1 for item in items if item.split("|", 1)[0].strip().lower() == b and "|" in item) <= 3 for b in branches), "hierarchy-tree holds at most 3 details per branch")
+    if kind in {"percent-ring", "line-chart"}:
+        need(isinstance(values, list) and len(values) == len(items), f"A {kind} visual needs values, one spoken number per item")
+    if kind == "percent-ring":
+        need(all(0 <= v <= 100 for v in values), "percent-ring values are percentages from 0 to 100")
+    if kind == "big-number":
+        need(len(items) == 1 and NUMBER_RE.match(items[0]) is not None, "big-number needs one item like '72%|of teachers plan ahead'")
+    if kind == "keyword-highlight":
+        title = str(visual.get("title", "")).lower()
+        need(all(item.strip().lower() in title for item in items), "keyword-highlight items must be words taken from the title sentence")
+    if kind == "scenario-card":
+        need(all(item.count("|") <= 1 for item in items), "scenario-card items are 'text' or 'Label|text'")
+    pair_shapes = {"flip-card": "'Front|Back'", "match-pairs": "'Term|its match'", "dialogue": "'Speaker|what they say'", "glossary": "'Term|meaning'"}
+    if kind in pair_shapes:
+        need(all(item.count("|") == 1 and all(p.strip() for p in item.split("|")) for item in items), f"{kind} items must look like {pair_shapes[kind]}")
+    if kind == "dialogue":
+        need(len({item.split("|", 1)[0].strip() for item in items}) <= 2, "dialogue has at most two speakers")
+    if kind == "fill-blank":
+        title = str(visual.get("title", "")).lower()
+        need(all(item.strip().lower() in title for item in items), "fill-blank items must be words taken from the title sentence")
+    if kind in {"predict-reveal", "cause-effect", "next-lesson"}:
+        need(bool(visual.get("center")), f"A {kind} visual needs center ({'the situation' if kind == 'predict-reveal' else 'the effect' if kind == 'cause-effect' else 'the next lesson'})")
+    current = visual.get("current")
+    if kind in {"agenda-progress", "gauge"}:
+        need(isinstance(current, int) and not isinstance(current, bool) and 1 <= current <= len(items), f"{kind} needs current: the number of the {'part the lesson is at now' if kind == 'agenda-progress' else 'level the needle points to'} (1 = first)")
+    elif kind == "chain":
+        need(current is None or (isinstance(current, int) and not isinstance(current, bool) and 1 <= current <= len(items)), "chain current (the weakest link) must be an item number, 1 = first")
+    elif current is not None:
+        raise ValueError(f"current is only used by agenda-progress, gauge and chain: {context}")
+    if kind == "q-and-a":
+        need(left_count is not None and left_count * 2 == len(items), "q-and-a needs one answer per question: list the questions, then the answers, with leftCount = number of questions")
+    if kind == "icon-array":
+        need(len(items) == 1 and re.match(r"^\s*\d+\s*/\s*(10|20|50|100)\s*\|\s*\S", items[0]) is not None, "icon-array needs one item like '8/10|teachers plan ahead' (out of 10, 20, 50 or 100)")
+        if items:
+            part, whole = (int(v) for v in re.findall(r"\d+", items[0].split("|")[0])[:2])
+            need(part <= whole, "icon-array: the part cannot be larger than the whole")
+    if kind == "number-change":
+        need(len(items) == 2 and all(NUMBER_RE.match(item) for item in items), "number-change needs two items like '40%|Before the course' and '75%|After the course'")
+    if kind in {"rating-scale", "column-chart"}:
+        need(isinstance(values, list) and len(values) == len(items), f"A {kind} visual needs values, one spoken number per item")
+    if kind == "rating-scale":
+        need(all(0 <= v <= 10 for v in values), "rating-scale values are scores from 0 to 10 (a 5-point scale when all are 5 or less)")
+    if kind == "bridge":
+        need(bool(visual.get("leftLabel")) and bool(visual.get("rightLabel")), "bridge needs leftLabel (where we are now) and rightLabel (the goal)")
+    if kind == "swot":
+        keys = [item.split("|")[0].strip().lower()[:1] for item in items]
+        need(all(item.count("|") == 1 for item in items) and all(k in "swot" and k for k in keys), "swot items must look like 'Strengths|text', 'Weaknesses|text', 'Opportunities|text' or 'Threats|text'")
+        need(all(keys.count(k) <= 2 for k in "swot"), "swot holds at most 2 items per quadrant")
+    if kind in {"five-whys", "ripple", "hourglass", "zoom-in"}:
+        need(bool(visual.get("center")), f"A {kind} visual needs center ({ {'five-whys': 'the problem', 'ripple': 'the action', 'hourglass': 'the focus in the middle', 'zoom-in': 'the big picture'}[kind] })")
+    if kind == "hourglass":
+        need(left_count is not None and left_count <= 3 and len(items) - left_count <= 3, "hourglass needs leftCount (inputs at the top), with at most 3 inputs and 3 outcomes")
+    if kind == "radar":
+        need(isinstance(values, list) and len(values) == len(items), "A radar visual needs values, one spoken score per item")
+    if kind == "concept-map":
+        need(all(item.count("|") == 2 and all(p.strip() for p in item.split("|")) for item in items), "concept-map items must look like 'Idea|relation|Other idea'")
+        nodes = {p.strip() for item in items for p in item.split("|")[::2]}
+        need(len(nodes) <= 6, "concept-map joins at most 6 different ideas")
+    if kind == "circles-of-control":
+        rings = [item.split("|")[0].strip().lower() for item in items]
+        need(all(item.count("|") == 1 for item in items) and all(r.split()[0] in {"control", "influence", "concern"} for r in rings if r), "circles-of-control items must look like 'Control|text', 'Influence|text' or 'Concern|text'")
+        need(rings.count("control") <= 2 and rings.count("influence") <= 3 and rings.count("concern") <= 3, "circles-of-control holds at most 2 items in Control and 3 in each other ring")
+    if kind == "swimlanes":
+        need(all(item.count("|") == 1 for item in items), "swimlanes items must look like 'Role|task'")
+        need(len({item.split("|")[0].strip() for item in items}) <= 3, "swimlanes has at most 3 roles")
+    if kind == "gantt":
+        need(all(re.match(r"^[^|]+\|\s*\d+\s*\|\s*\d+\s*$", item) for item in items), "gantt items must look like 'Task|start|end', for example 'Plan|1|2'")
+        need(all(1 <= int(item.split("|")[1]) <= int(item.split("|")[2]) <= 12 for item in items if re.match(r"^[^|]+\|\s*\d+\s*\|\s*\d+\s*$", item)), "gantt start and end are numbers from 1 to 12, start first")
+    if kind == "week-plan":
+        need(all(item.count("|") == 1 for item in items), "week-plan items must look like 'Day|activity'")
+    if kind == "time-wheel":
+        need(all(re.match(r"^[^|]+\|\s*\d+\s*$", item) for item in items), "time-wheel items must look like 'Part|minutes', for example 'Warm up|10'")
+    if kind in {"traffic-light", "then-now-next", "head-heart-hands", "compass"}:
+        need(all(item.count("|") <= 1 for item in items), f"{kind} items are 'text' or 'Label|text'")
 
 
 def load_visual_plan(script_path: Path) -> dict[str, list[dict[str, Any]]]:
@@ -615,6 +765,12 @@ async def build_manifest(script_path: Path, voice: str, plan_only: bool) -> dict
             captions = captions_for_interval(words, beat_start, beat_end)
             visual = dict(beat["visual"])
             item_phrases = visual.pop("itemPhrases", None)
+            reveal_phrase = visual.pop("revealPhrase", None)
+            if reveal_phrase:
+                reveal_start = resolve_phrase(words, str(reveal_phrase), f"{block.key} beat {beat_index} revealPhrase")
+                if not beat_start <= reveal_start < beat_end:
+                    raise ValueError(f"revealPhrase falls outside its visual beat in {block.key} beat {beat_index}")
+                visual["revealStartSeconds"] = round(reveal_start - beat_start, 3)
             if item_phrases:
                 item_starts = [
                     max(0.0, resolve_item_start(words, phrase, item_label, f"{block.key} beat {beat_index} item {item_index}") - beat_start)
@@ -622,7 +778,7 @@ async def build_manifest(script_path: Path, voice: str, plan_only: bool) -> dict
                 ]
                 # Items that share a phrase can resolve to words in a different order than
                 # the cards; keep the reveal sequence monotonic.
-                if visual.get("kind") not in {"before-after", "comparison", "balance", "iceberg"}:
+                if visual.get("kind") not in COLUMN_KINDS:
                     for k in range(1, len(item_starts)):
                         item_starts[k] = max(item_starts[k], item_starts[k - 1])
                 if any(start >= beat_end - beat_start for start in item_starts):

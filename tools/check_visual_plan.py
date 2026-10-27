@@ -28,14 +28,62 @@ LIMITS = {
     "card-grid": (2, 6), "mind-map": (3, 6), "donut": (2, 6), "bar-chart": (2, 6), "checklist": (2, 6),
     "funnel": (3, 5), "spectrum": (2, 5), "balance": (2, 6), "decision-tree": (2, 4),
     "iceberg": (3, 6), "stat-tiles": (2, 4), "gears": (2, 4), "definition": (2, 5),
+    "agenda": (3, 6), "learning-objectives": (2, 4), "key-takeaways": (3, 5), "next-steps": (1, 3),
+    "quiz-choice": (2, 4), "true-false": (1, 3), "tip-callout": (1, 2), "scenario-card": (2, 4),
+    "worked-example": (3, 6), "analogy": (1, 3), "myth-vs-fact": (2, 6), "pros-cons": (2, 8),
+    "pillars": (3, 5), "hierarchy-tree": (2, 10), "comparison-table": (2, 5), "percent-ring": (1, 3),
+    "line-chart": (3, 8), "quote": (1, 1), "keyword-highlight": (1, 3), "big-number": (1, 1),
+    "flip-card": (1, 3), "fill-blank": (1, 3), "match-pairs": (2, 4), "sequence-order": (3, 5),
+    "predict-reveal": (1, 1), "agenda-progress": (2, 6), "did-you-know": (1, 1), "q-and-a": (2, 6),
+    "dialogue": (2, 5), "next-lesson": (0, 3), "glossary": (2, 4), "icon-array": (1, 1),
+    "number-change": (2, 2), "rating-scale": (1, 3), "column-chart": (2, 6), "cause-effect": (2, 6),
+    "formula": (2, 4), "bridge": (2, 5), "puzzle": (2, 4), "growth-tree": (2, 6),
+    "swot": (4, 8), "priority-matrix": (2, 8), "five-whys": (2, 5), "traffic-light": (3, 3), "gauge": (3, 5),
+    "radar": (3, 6), "concept-map": (2, 5), "chain": (3, 6), "domino": (3, 6), "ripple": (2, 4),
+    "circles-of-control": (2, 8), "hourglass": (2, 6), "zoom-in": (2, 3), "spiral": (3, 5), "swimlanes": (2, 6),
+    "kanban": (2, 9), "gantt": (2, 6), "week-plan": (2, 5), "time-wheel": (2, 5), "then-now-next": (3, 3),
+    "head-heart-hands": (3, 3), "compass": (4, 4),
 }
 # Readability guard: longest card text (characters) before small type or clipping risk.
 # Beyond SOFT it warns; beyond HARD it is an error. Tight designs have small cards.
 TIGHT = {"mind-map", "cycle", "roadmap-path", "timeline", "gears", "venn", "pyramid", "funnel", "spectrum",
-         "iceberg", "quadrant", "stat-tiles", "staircase", "process", "target", "donut", "bar-chart"}
+         "iceberg", "quadrant", "stat-tiles", "staircase", "process", "target", "donut", "bar-chart",
+         "key-takeaways", "pillars", "hierarchy-tree", "percent-ring", "keyword-highlight",
+         "fill-blank", "agenda-progress", "column-chart", "cause-effect", "formula", "bridge", "puzzle", "growth-tree",
+         "gauge", "radar", "concept-map", "chain", "domino", "ripple", "circles-of-control", "hourglass", "swimlanes",
+         "gantt", "week-plan", "time-wheel", "priority-matrix", "zoom-in"}
 SOFT_TIGHT, HARD_TIGHT, SOFT_WIDE, HARD_WIDE = 32, 48, 55, 80
+# Designs with their own text limits (soft, hard): narrow chart labels, table cells, a whole quotation.
+SPECIAL = {"line-chart": (12, 20), "comparison-table": (24, 40), "quote": (160, 220), "did-you-know": (120, 160), "predict-reveal": (70, 100)}
+# Designs that may only show numbers the narrator actually says.
+SPOKEN_NUMBERS = {"stat-tiles", "big-number", "percent-ring", "line-chart", "icon-array", "number-change", "rating-scale", "column-chart",
+                  "radar", "gantt", "time-wheel"}
+LABELLED_NUMBERS = {"stat-tiles", "big-number", "number-change", "icon-array"}
 NUM_WORDS = {"one": "1", "two": "2", "three": "3", "four": "4", "five": "5", "six": "6", "seven": "7", "eight": "8", "nine": "9", "ten": "10",
-             "eleven": "11", "twelve": "12", "thirteen": "13", "fourteen": "14", "fifteen": "15", "twenty": "20", "twenty-five": "25"}
+             "eleven": "11", "twelve": "12", "thirteen": "13", "fourteen": "14", "fifteen": "15", "twenty": "20", "twenty-five": "25",
+             "thirty": "30", "forty": "40", "fifty": "50", "sixty": "60", "seventy": "70", "eighty": "80", "ninety": "90", "hundred": "100"}
+
+
+def spoken_numbers(tokens: list[str]) -> set[str]:
+    """Every number in the narration, as plain digits ("72%" → "72", "1,200" → "1200", "five" → "5")."""
+    found: set[str] = set()
+    for token in tokens:
+        t = token.lower().strip(".,;:!?\"'()")
+        if t in NUM_WORDS:
+            found.add(NUM_WORDS[t])
+        digits = re.sub(r"[^\d.]", "", t).strip(".")
+        if digits:
+            found.add(digits)
+            if "." in digits:
+                found.add(digits.rstrip("0").rstrip("."))
+    return found
+
+
+def plain_number(value: float | str) -> str:
+    if isinstance(value, str):
+        value = re.sub(r"[^\d.]", "", value).strip(".")
+        return NUM_WORDS.get(value, value)
+    return str(int(value)) if float(value).is_integer() else str(value)
 
 
 def main(script: Path) -> int:
@@ -68,22 +116,40 @@ def main(script: Path) -> int:
             if lo_hi and not lo_hi[0] <= len(items) <= lo_hi[1]:
                 errors.append(f"{block.key} beat {k}: {v['kind']} needs {lo_hi[0]}–{lo_hi[1]} items, has {len(items)}")
             if v["kind"] not in {"title", "statement", "question", "outro", "checklist"}:
-                soft, hard = (SOFT_TIGHT, HARD_TIGHT) if v["kind"] in TIGHT else (SOFT_WIDE, HARD_WIDE)
+                soft, hard = SPECIAL.get(v["kind"]) or ((SOFT_TIGHT, HARD_TIGHT) if v["kind"] in TIGHT else (SOFT_WIDE, HARD_WIDE))
                 for item in items:
-                    text = item.split("|")[-1] if v["kind"] != "decision-tree" else max(item.split("|"), key=len)
+                    # Number cards: only the label is text. Everything else: the longest part.
+                    text = item.split("|")[-1] if v["kind"] in LABELLED_NUMBERS else max(item.split("|"), key=len)
+                    if v["kind"] == "true-false":
+                        text = item.split("|")[0]
+                    elif v["kind"] in {"gantt", "time-wheel"}:
+                        text = item.split("|")[0]
                     if len(text.strip()) > hard:
                         errors.append(f"{block.key} beat {k}: card text too long to read ({len(text.strip())} chars, max {hard}) in {v['kind']}: {text.strip()!r} — shorten it")
                     elif len(text.strip()) > soft:
                         warnings.append(f"{block.key} beat {k}: long card text ({len(text.strip())} chars, aim ≤ {soft}) in {v['kind']}: {text.strip()!r}")
             if v["kind"] == "title" and (block is not blocks[0] or k > 0):
                 warnings.append(f"{block.key} beat {k}: mid-video title renders as a section divider (no logo) — intended?")
-            if v["kind"] == "stat-tiles":
-                spoken = {t.lower().strip(".,;:") for t in tokens}
-                spoken |= {NUM_WORDS[t] for t in spoken if t in NUM_WORDS}
-                for item in items:
-                    num = item.split("|")[0].strip().lower()
-                    if num not in spoken and NUM_WORDS.get(num) not in spoken:
-                        errors.append(f"{block.key} beat {k}: stat {num!r} is not spoken in the narration — never invent numbers")
+            if v["kind"] in SPOKEN_NUMBERS:
+                said = spoken_numbers(tokens)
+                if v["kind"] == "icon-array":
+                    shown = [n for item in items for n in re.findall(r"\d+", item.split("|")[0])]
+                elif v["kind"] in {"gantt", "time-wheel"}:
+                    shown = [p.strip() for item in items for p in item.split("|")[1:]]
+                elif v["kind"] in LABELLED_NUMBERS:
+                    shown = [item.split("|")[0].strip() for item in items]
+                else:
+                    shown = list(v.get("values") or [])
+                for num in shown:
+                    if plain_number(num) not in said:
+                        errors.append(f"{block.key} beat {k}: number {num!r} is not spoken in the narration — never invent numbers")
+            if v.get("revealPhrase"):
+                try:
+                    reveal = b.resolve_phrase(words, str(v["revealPhrase"]), f"{block.key} beat {k} revealPhrase")
+                    if not s0 <= reveal < e0:
+                        errors.append(f"{block.key} beat {k}: the answer (revealPhrase) is spoken outside its slide")
+                except ValueError as exc:
+                    errors.append(str(exc).split(";")[0])
             if items and v["kind"] not in {"title", "statement", "question", "outro"} and not str(beat.get("why", "")).strip():
                 missing_why.append(f"{block.key} beat {k}")
             phrases = v.get("itemPhrases") or []

@@ -34,6 +34,68 @@ export type ScriptVisual = {
     | "stat-tiles"
     | "gears"
     | "definition"
+    | "agenda"
+    | "learning-objectives"
+    | "key-takeaways"
+    | "next-steps"
+    | "quiz-choice"
+    | "true-false"
+    | "tip-callout"
+    | "scenario-card"
+    | "worked-example"
+    | "analogy"
+    | "myth-vs-fact"
+    | "pros-cons"
+    | "pillars"
+    | "hierarchy-tree"
+    | "comparison-table"
+    | "percent-ring"
+    | "line-chart"
+    | "quote"
+    | "keyword-highlight"
+    | "big-number"
+    | "flip-card"
+    | "match-pairs"
+    | "sequence-order"
+    | "predict-reveal"
+    | "agenda-progress"
+    | "q-and-a"
+    | "dialogue"
+    | "glossary"
+    | "icon-array"
+    | "number-change"
+    | "rating-scale"
+    | "column-chart"
+    | "cause-effect"
+    | "formula"
+    | "bridge"
+    | "puzzle"
+    | "growth-tree"
+    | "swot"
+    | "priority-matrix"
+    | "five-whys"
+    | "traffic-light"
+    | "gauge"
+    | "radar"
+    | "concept-map"
+    | "chain"
+    | "domino"
+    | "ripple"
+    | "circles-of-control"
+    | "hourglass"
+    | "zoom-in"
+    | "spiral"
+    | "swimlanes"
+    | "kanban"
+    | "gantt"
+    | "week-plan"
+    | "time-wheel"
+    | "then-now-next"
+    | "head-heart-hands"
+    | "compass"
+    | "fill-blank"
+    | "did-you-know"
+    | "next-lesson"
     | "outro";
   title: string;
   kicker?: string;
@@ -50,8 +112,18 @@ export type ScriptVisual = {
   rightLabel?: string;
   /** comparison / before-after / balance: items in the left column. iceberg: items above the water (1–2). */
   leftCount?: number;
-  /** comparison: badge between the columns (default "VS"; e.g. "+" or "?"). definition: connector word (default "means"). */
+  /** comparison: badge between the columns (default "VS"; e.g. "+" or "?"). definition: connector word (default "means"). tip-callout: the label ("Tip", "Remember", "Warning", "Note"). analogy: words under ≈ (default "is like"). */
   joiner?: string;
+  /** quiz-choice: the correct option, 1-based. */
+  answer?: number;
+  /** quiz-choice / true-false: when the answer is spoken (seconds from slide start; from `revealPhrase`). */
+  revealStartSeconds?: number;
+  /** comparison-table: one heading per compared option (2–4). */
+  columns?: string[];
+  /** agenda-progress: the part the lesson is at now (1-based). */
+  current?: number;
+  /** Background style for this slide (light: halo, dots, edge, wash, grid, arcs; dark: halo, glow, stripes, constellation, waves, mesh). Default: the next style in turn. */
+  backdrop?: string;
 };
 
 export type ScriptScene = {
