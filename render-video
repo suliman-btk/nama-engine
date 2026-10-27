@@ -1,0 +1,13 @@
+#!/bin/sh
+# Makes the final video of the prepared lesson, on this computer, into output/<lesson>.mp4
+# Run it only after the review pictures from ./prepare-video have been approved.
+set -eu
+repo_dir=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)
+cd "$repo_dir"
+if [ ! -f work/prepared-lesson.txt ]; then echo "No lesson is prepared yet. Run ./prepare-video transcripts/<lesson>.md first."; exit 1; fi
+script=$(cat work/prepared-lesson.txt)
+name=$(basename "$script" .md | tr 'A-Z' 'a-z')
+mkdir -p output
+echo "Making the final video of $script (this takes a few minutes)..."
+(cd engine && npx remotion render src/index.ts ScriptVideo "../output/$name.mp4" --codec=h264 --crf=20 --audio-codec=aac --log=error)
+echo "Done: output/$name.mp4"

@@ -1,0 +1,265 @@
+{
+  "version": 1,
+  "slug": "nama-lesson-01-welcome",
+  "title": "NAMA — Lesson 1: Welcome to NAMA Engine",
+  "lessonLabel": "NAMA · Lesson 1",
+  "fps": 30,
+  "width": 1920,
+  "height": 1080,
+  "totalDurationSeconds": 47.916,
+  "greetingEndSeconds": 0.0,
+  "narrationAudioSrc": null,
+  "audioTracks": [
+    {
+      "id": "source-scene-001",
+      "startSeconds": 0.0,
+      "durationSeconds": 11.412,
+      "audioSrc": null,
+      "narration": "Welcome. NAMA Engine turns the transcript of a lesson into a complete video. You write what the narrator should say, and the engine does the rest.",
+      "section": "Pure narration"
+    },
+    {
+      "id": "source-scene-002",
+      "startSeconds": 12.712,
+      "durationSeconds": 13.453,
+      "audioSrc": null,
+      "narration": "The engine works in three steps. First, it records the voice. Next, it prepares slides that appear when each idea is spoken. Finally, it makes the video on your own computer.",
+      "section": "Pure narration"
+    },
+    {
+      "id": "source-scene-003",
+      "startSeconds": 27.465,
+      "durationSeconds": 13.453,
+      "audioSrc": null,
+      "narration": "Before the final video is made, you see pictures of many moments of the video. You check the logos, the colours and the text, and you confirm when everything looks right.",
+      "section": "Pure narration"
+    },
+    {
+      "id": "source-scene-004",
+      "startSeconds": 42.218,
+      "durationSeconds": 5.698,
+      "audioSrc": null,
+      "narration": "Thank you for watching. Your first lesson is only one transcript away.",
+      "section": "Pure narration"
+    }
+  ],
+  "scenes": [
+    {
+      "id": "scene-001-beat-01",
+      "sourceSceneId": "source-scene-001",
+      "startSeconds": 0.0,
+      "durationSeconds": 5.706,
+      "audioSrc": null,
+      "narration": "Welcome. NAMA Engine turns the transcript of a lesson into a complete video.",
+      "section": "Pure narration",
+      "background": "light",
+      "visual": {
+        "kind": "title",
+        "title": "Welcome to NAMA Engine",
+        "kicker": "Lesson 1"
+      },
+      "captions": [
+        {
+          "startSeconds": 0.0,
+          "endSeconds": 0.559,
+          "text": "Welcome."
+        },
+        {
+          "startSeconds": 0.439,
+          "endSeconds": 3.631,
+          "text": "NAMA Engine turns the transcript of a"
+        },
+        {
+          "startSeconds": 3.511,
+          "endSeconds": 5.706,
+          "text": "lesson into a complete video."
+        }
+      ]
+    },
+    {
+      "id": "scene-001-beat-02",
+      "sourceSceneId": "source-scene-001",
+      "startSeconds": 5.706,
+      "durationSeconds": 7.006,
+      "audioSrc": null,
+      "narration": "You write what the narrator should say, and the engine does the rest.",
+      "section": "Pure narration",
+      "background": "light",
+      "visual": {
+        "kind": "comparison",
+        "title": "From transcript to video",
+        "kicker": "How it works",
+        "items": [
+          "You write what the narrator says",
+          "The engine does the rest"
+        ],
+        "leftLabel": "You",
+        "rightLabel": "The engine",
+        "joiner": "→",
+        "leftCount": 1,
+        "itemStartSeconds": [
+          0.439,
+          3.95
+        ]
+      },
+      "captions": [
+        {
+          "startSeconds": 0.0,
+          "endSeconds": 3.193,
+          "text": "You write what the narrator should say,"
+        },
+        {
+          "startSeconds": 3.073,
+          "endSeconds": 5.706,
+          "text": "and the engine does the rest."
+        }
+      ]
+    },
+    {
+      "id": "scene-002-beat-01",
+      "sourceSceneId": "source-scene-002",
+      "startSeconds": 12.712,
+      "durationSeconds": 14.753,
+      "audioSrc": null,
+      "narration": "The engine works in three steps. First, it records the voice. Next, it prepares slides that appear when each idea is spoken. Finally, it makes the video on your own computer.",
+      "section": "Pure narration",
+      "background": "light",
+      "visual": {
+        "kind": "process",
+        "title": "Three steps",
+        "kicker": "The engine",
+        "items": [
+          "Record the voice",
+          "Prepare the slides",
+          "Make the video"
+        ],
+        "itemStartSeconds": [
+          3.472,
+          5.642,
+          11.283
+        ]
+      },
+      "captions": [
+        {
+          "startSeconds": 0.0,
+          "endSeconds": 2.724,
+          "text": "The engine works in three steps."
+        },
+        {
+          "startSeconds": 2.604,
+          "endSeconds": 4.894,
+          "text": "First, it records the voice."
+        },
+        {
+          "startSeconds": 4.774,
+          "endSeconds": 7.931,
+          "text": "Next, it prepares slides that appear when"
+        },
+        {
+          "startSeconds": 7.811,
+          "endSeconds": 9.667,
+          "text": "each idea is spoken."
+        },
+        {
+          "startSeconds": 9.547,
+          "endSeconds": 12.705,
+          "text": "Finally, it makes the video on your"
+        },
+        {
+          "startSeconds": 12.585,
+          "endSeconds": 13.453,
+          "text": "own computer."
+        }
+      ]
+    },
+    {
+      "id": "scene-003-beat-01",
+      "sourceSceneId": "source-scene-003",
+      "startSeconds": 27.465,
+      "durationSeconds": 14.753,
+      "audioSrc": null,
+      "narration": "Before the final video is made, you see pictures of many moments of the video. You check the logos, the colours and the text, and you confirm when everything looks right.",
+      "section": "Pure narration",
+      "background": "dark",
+      "visual": {
+        "kind": "card-grid",
+        "title": "Before the final video, you check",
+        "kicker": "Review",
+        "items": [
+          "The logos",
+          "The colours",
+          "The text"
+        ],
+        "itemStartSeconds": [
+          7.811,
+          8.679,
+          9.981
+        ]
+      },
+      "captions": [
+        {
+          "startSeconds": 0.0,
+          "endSeconds": 3.158,
+          "text": "Before the final video is made, you"
+        },
+        {
+          "startSeconds": 3.038,
+          "endSeconds": 6.196,
+          "text": "see pictures of many moments of the"
+        },
+        {
+          "startSeconds": 6.076,
+          "endSeconds": 6.63,
+          "text": "video."
+        },
+        {
+          "startSeconds": 6.51,
+          "endSeconds": 9.667,
+          "text": "You check the logos, the colours and"
+        },
+        {
+          "startSeconds": 9.547,
+          "endSeconds": 12.705,
+          "text": "the text, and you confirm when everything"
+        },
+        {
+          "startSeconds": 12.585,
+          "endSeconds": 13.453,
+          "text": "looks right."
+        }
+      ]
+    },
+    {
+      "id": "scene-004-beat-01",
+      "sourceSceneId": "source-scene-004",
+      "startSeconds": 42.218,
+      "durationSeconds": 5.698,
+      "audioSrc": null,
+      "narration": "Thank you for watching. Your first lesson is only one transcript away.",
+      "section": "Pure narration",
+      "background": "light",
+      "visual": {
+        "kind": "statement",
+        "title": "One transcript away",
+        "kicker": "Thank you"
+      },
+      "captions": [
+        {
+          "startSeconds": 0.0,
+          "endSeconds": 2.019,
+          "text": "Thank you for watching."
+        },
+        {
+          "startSeconds": 1.899,
+          "endSeconds": 5.343,
+          "text": "Your first lesson is only one transcript"
+        },
+        {
+          "startSeconds": 5.223,
+          "endSeconds": 5.698,
+          "text": "away."
+        }
+      ]
+    }
+  ]
+}

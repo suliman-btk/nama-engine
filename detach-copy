@@ -1,0 +1,26 @@
+#!/bin/sh
+# Makes this folder YOUR OWN independent copy of NAMA Engine.
+# It disconnects the folder from the original project on GitHub, so nothing you change can
+# ever be sent (pushed) back to the original. Your files and history stay as they are.
+# Afterwards you can connect it to your own GitHub project if you want:
+#   git remote add origin https://github.com/<you>/<your-project>.git
+set -eu
+repo_dir=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)
+cd "$repo_dir"
+ORIGINAL="suliman-btk/nama-engine"
+if ! git rev-parse --git-dir >/dev/null 2>&1; then echo "This folder is not linked to any project. Nothing to do."; exit 0; fi
+for remote in $(git remote); do
+  url=$(git remote get-url "$remote" 2>/dev/null || true)
+  case "$url" in
+    *"$ORIGINAL"*) git remote remove "$remote"; echo "Disconnected from the original project ($remote)." ;;
+  esac
+done
+# Safety net: refuse any future push to the original project, even if someone re-adds it.
+hook=.git/hooks/pre-push
+cat > "$hook" <<HOOK
+#!/bin/sh
+case "\$2" in *$ORIGINAL*) echo "Blocked: this is an independent copy; it never pushes to the original NAMA Engine ($ORIGINAL)."; exit 1;; esac
+exit 0
+HOOK
+chmod +x "$hook"
+echo "This is now your own independent copy. Changes stay on this computer unless you connect it to your own GitHub project."

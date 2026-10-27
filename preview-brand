@@ -1,0 +1,15 @@
+#!/bin/sh
+# Renders three still pictures so you can check the logos and colours before making videos:
+#   1-opening.png (opening animation), 2-title.png (title slide), 3-slide.png (a normal slide).
+# They use the most recently built lesson. Pictures are saved in output/brand-preview/
+set -eu
+repo_dir=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)
+cd "$repo_dir/engine"
+mkdir -p ../output/brand-preview
+extra=""
+if [ -n "${REMOTION_BROWSER:-}" ]; then extra="--browser-executable=$REMOTION_BROWSER"; fi
+for pair in "1-opening:75" "2-title:270" "3-slide:900"; do
+  name=${pair%%:*}; frame=${pair#*:}
+  npx remotion still src/index.ts ScriptVideo "../output/brand-preview/$name.png" --frame="$frame" --log=error $extra
+done
+echo "Saved pictures in: output/brand-preview/"

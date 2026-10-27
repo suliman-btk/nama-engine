@@ -1,0 +1,83 @@
+{
+ "Pure narration · 1": [
+  {
+   "visual": {
+    "kind": "title",
+    "title": "Welcome to NAMA Engine",
+    "kicker": "Lesson 1"
+   },
+   "why": "opening title"
+  },
+  {
+   "visual": {
+    "kind": "comparison",
+    "title": "From transcript to video",
+    "kicker": "How it works",
+    "items": [
+     "You write what the narrator says",
+     "The engine does the rest"
+    ],
+    "itemPhrases": [
+     "you write what the narrator should say",
+     "the engine does the rest"
+    ],
+    "leftLabel": "You",
+    "rightLabel": "The engine",
+    "joiner": "→",
+    "leftCount": 1
+   },
+   "why": "two roles side by side",
+   "atPhrase": "You write what"
+  }
+ ],
+ "Pure narration · 2": [
+  {
+   "visual": {
+    "kind": "process",
+    "title": "Three steps",
+    "kicker": "The engine",
+    "items": [
+     "Record the voice",
+     "Prepare the slides",
+     "Make the video"
+    ],
+    "itemPhrases": [
+     "records the voice",
+     "prepares slides",
+     "makes the video"
+    ]
+   },
+   "why": "steps in order"
+  }
+ ],
+ "Pure narration · 3": [
+  {
+   "visual": {
+    "kind": "card-grid",
+    "title": "Before the final video, you check",
+    "kicker": "Review",
+    "items": [
+     "The logos",
+     "The colours",
+     "The text"
+    ],
+    "itemPhrases": [
+     "the logos,",
+     "the colours",
+     "and the text"
+    ]
+   },
+   "why": "three things to check"
+  }
+ ],
+ "Pure narration · 4": [
+  {
+   "visual": {
+    "kind": "statement",
+    "title": "One transcript away",
+    "kicker": "Thank you"
+   },
+   "why": "closing idea"
+  }
+ ]
+}

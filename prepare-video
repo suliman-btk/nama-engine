@@ -1,0 +1,28 @@
+#!/bin/sh
+# Prepares one lesson for review (nothing is published, everything stays on this computer):
+#   ./prepare-video transcripts/<lesson>.md
+# 1) checks the slide plan  2) records the voice and times the slides
+# 3) checks every slide (overlap, cut-off text, hidden logos, colours) and saves review
+#    pictures in output/review/<lesson>/
+# When the pictures are approved, run ./render-video to make the final video.
+set -eu
+if [ $# -lt 1 ]; then echo "Usage: ./prepare-video transcripts/<lesson>.md"; exit 1; fi
+repo_dir=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)
+script=$1
+cd "$repo_dir"
+echo "1/3  Checking the slide plan..."
+plan="${script%.md}.visuals.json"
+if [ -f "$plan" ]; then python3 tools/check_visual_plan.py "$script"; else echo "     (no slide plan - the engine will choose simple slides)"; fi
+echo "2/3  Recording the voice and timing the slides..."
+python3 tools/build_script_video.py "$script" --no-render
+mkdir -p work
+printf '%s\n' "$script" > work/prepared-lesson.txt
+echo "3/3  Checking every slide and making review pictures..."
+if (cd engine && node scripts/visual-qa.mjs); then
+  echo ""
+  echo "Ready for review: look at output/review/ (sheet-*.png). When it looks right, run ./render-video"
+else
+  echo ""
+  echo "Some slides need fixing (see the report above and output/review/). Fix them and run ./prepare-video again."
+  exit 1
+fi

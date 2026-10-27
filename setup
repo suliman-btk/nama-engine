@@ -1,0 +1,46 @@
+#!/bin/sh
+# One-time setup: checks your computer has everything the video engine needs and installs
+# what it can. Safe to run again at any time.
+set -u
+repo_dir=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)
+cd "$repo_dir" || exit 1
+ok=0
+say() { printf '%s\n' "$*"; }
+good() { say "  [ok]  $*"; }
+bad() { say "  [!!]  $*"; ok=1; }
+
+say ""
+say "Checking your computer for NAMA Engine..."
+say ""
+
+if command -v python3 >/dev/null 2>&1; then good "Python 3 ($(python3 --version 2>&1))"; else bad "Python 3 is missing. Install it from https://www.python.org/downloads/"; fi
+if command -v node >/dev/null 2>&1; then
+  major=$(node -p 'process.versions.node.split(".")[0]')
+  if [ "$major" -ge 18 ]; then good "Node.js $(node --version)"; else bad "Node.js $(node --version) is too old. Install version 18 or newer from https://nodejs.org"; fi
+else bad "Node.js is missing. Install it from https://nodejs.org (choose the LTS version)"; fi
+if command -v ffmpeg >/dev/null 2>&1; then good "ffmpeg"; else
+  if command -v brew >/dev/null 2>&1; then say "  ...   installing ffmpeg (this can take a few minutes)"; brew install ffmpeg >/dev/null 2>&1 && good "ffmpeg installed" || bad "Could not install ffmpeg. Run: brew install ffmpeg"
+  else bad "ffmpeg is missing. On a Mac: install Homebrew from https://brew.sh then run: brew install ffmpeg"; fi
+fi
+
+if command -v python3 >/dev/null 2>&1; then
+  say "  ...   installing the narration voice tools"
+  if python3 -m pip install --quiet --upgrade -r tools/requirements.txt pillow 2>/dev/null \
+    || python3 -m pip install --quiet --upgrade --break-system-packages -r tools/requirements.txt pillow 2>/dev/null \
+    || python3 -m pip install --quiet --upgrade --user -r tools/requirements.txt pillow 2>/dev/null; then
+    good "Narration voice tools (edge-tts)"
+  else bad "Could not install the voice tools. Run: python3 -m pip install edge-tts pillow"; fi
+fi
+
+if command -v npm >/dev/null 2>&1; then
+  say "  ...   installing the video renderer (first time takes a few minutes)"
+  if (cd engine && npm install --silent >/dev/null 2>&1); then good "Video renderer (Remotion)"; else bad "Could not install the renderer. Run: cd engine && npm install"; fi
+fi
+
+say ""
+if [ "$ok" -eq 0 ]; then
+  say "All set. Next: ask your AI assistant to \"set up NAMA Engine for my course\" (or read README.md)."
+else
+  say "Some items need attention (marked [!!]). Fix them, then run ./setup again."
+fi
+exit "$ok"

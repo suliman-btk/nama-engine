@@ -1,0 +1,7 @@
+#!/bin/sh
+# Checks every slide of the prepared lesson (overlap, cut-off text, hidden logos, colours) and
+# saves review pictures and a report in output/review/<lesson>/
+set -eu
+repo_dir=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)
+cd "$repo_dir/engine"
+node scripts/visual-qa.mjs

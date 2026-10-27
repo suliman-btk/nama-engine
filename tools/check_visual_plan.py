@@ -1,0 +1,127 @@
+#!/usr/bin/env python3
+"""Check a lesson's .visuals.json against its narration script — no TTS, no rendering.
+
+Usage:  python3 tools/check_visual_plan.py transcripts/<lesson>.md
+
+Reports, per lesson:
+  - phrase anchors that are missing or not unique in their section
+  - items whose phrase does not appear in the section's narration
+  - cards that would appear together (estimated < 0.45 s apart)
+  - list kinds whose item count does not suit the design
+  - a summary of design variety (most-used kinds)
+Exit code 1 if anything must be fixed.
+"""
+from __future__ import annotations
+
+import re
+import sys
+from collections import Counter
+from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import build_script_video as b  # noqa: E402
+
+LIMITS = {
+    "venn": (2, 3), "quadrant": (4, 4), "comparison": (2, 6), "before-after": (2, 6),
+    "pyramid": (3, 5), "layer-stack": (3, 5), "target": (3, 5), "process": (3, 5),
+    "staircase": (3, 5), "roadmap-path": (3, 6), "timeline": (3, 6), "cycle": (3, 6),
+    "card-grid": (2, 6), "mind-map": (3, 6), "donut": (2, 6), "bar-chart": (2, 6), "checklist": (2, 6),
+    "funnel": (3, 5), "spectrum": (2, 5), "balance": (2, 6), "decision-tree": (2, 4),
+    "iceberg": (3, 6), "stat-tiles": (2, 4), "gears": (2, 4), "definition": (2, 5),
+}
+# Readability guard: longest card text (characters) before small type or clipping risk.
+# Beyond SOFT it warns; beyond HARD it is an error. Tight designs have small cards.
+TIGHT = {"mind-map", "cycle", "roadmap-path", "timeline", "gears", "venn", "pyramid", "funnel", "spectrum",
+         "iceberg", "quadrant", "stat-tiles", "staircase", "process", "target", "donut", "bar-chart"}
+SOFT_TIGHT, HARD_TIGHT, SOFT_WIDE, HARD_WIDE = 32, 48, 55, 80
+NUM_WORDS = {"one": "1", "two": "2", "three": "3", "four": "4", "five": "5", "six": "6", "seven": "7", "eight": "8", "nine": "9", "ten": "10",
+             "eleven": "11", "twelve": "12", "thirteen": "13", "fourteen": "14", "fifteen": "15", "twenty": "20", "twenty-five": "25"}
+
+
+def main(script: Path) -> int:
+    _, blocks = b.parse_markdown(script)
+    plan = b.load_visual_plan(script)
+    errors: list[str] = []
+    warnings: list[str] = []
+    kinds: Counter[str] = Counter()
+    missing_why: list[str] = []
+    for block in blocks:
+        beats = plan.get(block.key)
+        if not beats:
+            warnings.append(f"{block.key}: no visual plan (auto layout will be used)")
+            continue
+        # One "word" per spoken token (TTS splits on dashes too); time = token index.
+        tokens = re.findall(r"[^\s—–]+", block.narration)
+        words = [{"text": t, "start": float(i), "end": float(i + 1)} for i, t in enumerate(tokens)]
+        duration = float(len(tokens))
+        try:
+            starts = [0.0] + [b.resolve_phrase(words, str(x["atPhrase"]), block.key) for x in beats[1:]]
+        except ValueError as exc:
+            errors.append(str(exc).split(";")[0])
+            continue
+        ends = starts[1:] + [duration]
+        for k, (beat, s0, e0) in enumerate(zip(beats, starts, ends)):
+            v = beat["visual"]
+            kinds[v["kind"]] += 1
+            items = v.get("items") or []
+            lo_hi = LIMITS.get(v["kind"])
+            if lo_hi and not lo_hi[0] <= len(items) <= lo_hi[1]:
+                errors.append(f"{block.key} beat {k}: {v['kind']} needs {lo_hi[0]}–{lo_hi[1]} items, has {len(items)}")
+            if v["kind"] not in {"title", "statement", "question", "outro", "checklist"}:
+                soft, hard = (SOFT_TIGHT, HARD_TIGHT) if v["kind"] in TIGHT else (SOFT_WIDE, HARD_WIDE)
+                for item in items:
+                    text = item.split("|")[-1] if v["kind"] != "decision-tree" else max(item.split("|"), key=len)
+                    if len(text.strip()) > hard:
+                        errors.append(f"{block.key} beat {k}: card text too long to read ({len(text.strip())} chars, max {hard}) in {v['kind']}: {text.strip()!r} — shorten it")
+                    elif len(text.strip()) > soft:
+                        warnings.append(f"{block.key} beat {k}: long card text ({len(text.strip())} chars, aim ≤ {soft}) in {v['kind']}: {text.strip()!r}")
+            if v["kind"] == "title" and (block is not blocks[0] or k > 0):
+                warnings.append(f"{block.key} beat {k}: mid-video title renders as a section divider (no logo) — intended?")
+            if v["kind"] == "stat-tiles":
+                spoken = {t.lower().strip(".,;:") for t in tokens}
+                spoken |= {NUM_WORDS[t] for t in spoken if t in NUM_WORDS}
+                for item in items:
+                    num = item.split("|")[0].strip().lower()
+                    if num not in spoken and NUM_WORDS.get(num) not in spoken:
+                        errors.append(f"{block.key} beat {k}: stat {num!r} is not spoken in the narration — never invent numbers")
+            if items and v["kind"] not in {"title", "statement", "question", "outro"} and not str(beat.get("why", "")).strip():
+                missing_why.append(f"{block.key} beat {k}")
+            phrases = v.get("itemPhrases") or []
+            if items and not phrases:
+                warnings.append(f"{block.key} beat {k}: items have no itemPhrases — cards will not sync to the voice")
+            times = []
+            for item, phrase in zip(items, phrases):
+                try:
+                    t = b.resolve_item_start(words, phrase, item, f"{block.key} beat {k} item {item!r}")
+                except ValueError as exc:
+                    errors.append(str(exc).split(";")[0])
+                    continue
+                if not s0 <= t < e0:
+                    errors.append(f"{block.key} beat {k}: item {item!r} is spoken outside its slide")
+                times.append((t, item))
+            times.sort()
+            for (t1, a), (t2, c) in zip(times, times[1:]):
+                # Together = same word, or the very next word with no pause (comma, "and", "or") between.
+                gap = int(t2 - t1)
+                pause = gap == 1 and (re.search(r"[,;:.!?]$", tokens[int(t1)]) is not None)
+                if gap == 0 or (gap == 1 and not pause):
+                    errors.append(f"{block.key} beat {k}: {a!r} and {c!r} would appear together — give each its own phrase")
+    print(f"Design use: {', '.join(f'{k}×{n}' for k, n in kinds.most_common())}")
+    top = kinds.most_common(1)
+    if top and sum(kinds.values()) and top[0][1] / sum(kinds.values()) > 0.3 and top[0][0] not in {"statement"}:
+        warnings.append(f"'{top[0][0]}' is used for over 30% of slides — vary the designs")
+    if missing_why:
+        warnings.append(f"{len(missing_why)} diagram beat(s) have no \"why\" (state why this design fits the narration): {', '.join(missing_why[:6])}{' …' if len(missing_why) > 6 else ''}")
+    for w in warnings:
+        print("WARN ", w)
+    for e in errors:
+        print("ERROR", e)
+    print("OK — ready to render" if not errors else f"{len(errors)} error(s) to fix")
+    return 1 if errors else 0
+
+
+if __name__ == "__main__":
+    if len(sys.argv) != 2:
+        print(__doc__)
+        sys.exit(2)
+    sys.exit(main(Path(sys.argv[1])))

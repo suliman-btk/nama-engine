@@ -1,0 +1,23 @@
+{
+  "name": "nama-engine",
+  "version": "0.1.0",
+  "private": true,
+  "description": "NAMA Engine by NAMA Foundation: lesson transcript -> narrated video with timed slides.",
+  "scripts": {
+    "start": "remotion studio src/index.ts",
+    "render": "remotion render src/index.ts ScriptVideo",
+    "typecheck": "tsc --noEmit",
+    "qa": "node scripts/visual-qa.mjs"
+  },
+  "dependencies": {
+    "@remotion/cli": "4.0.521",
+    "react": "18.3.1",
+    "react-dom": "18.3.1",
+    "remotion": "4.0.521",
+    "zod": "4.5.4"
+  },
+  "devDependencies": {
+    "@types/react": "18.3.1",
+    "typescript": "5.5.4"
+  }
+}

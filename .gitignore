@@ -1,0 +1,14 @@
+# NAMA Engine - files made on your computer (never shared)
+node_modules/
+output/
+work/
+engine/out/
+engine/public/script-videos/
+.course-setup-done
+course-config.backup.json
+*.mp4
+*.mp3
+.DS_Store
+__pycache__/
+!output/.gitkeep
+!work/.gitkeep
